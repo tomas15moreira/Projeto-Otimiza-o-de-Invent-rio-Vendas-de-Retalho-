@@ -13,10 +13,9 @@ A estrutura deste projeto segue as boas práticas de Ciência de Dados e Engenha
 * **`requirements.txt`**: Ficheiro de configuração com as bibliotecas necessárias.
 ## 1. Iniciação (Milestone 1)
 ### Contexto e Problema de Negócio
-[Descreve o problema que pretendem resolver. Qual é o desafio da empresa ou organização?]
+O setor do retalho exige um planeamento rigoroso para garantir a adequação do inventário à procura diária. A Rossmann, uma cadeia de drogarias europeia com mais de mil estabelecimentos, enfrenta o desafio constante de antecipar o volume de transações em cada local. Uma estimativa incorreta resulta em ruturas nas prateleiras, o que afasta consumidores para a concorrência, ou na acumulação excessiva de mercadoria, o que imobiliza capital financeiro de forma ineficiente. A complexidade deste planeamento reside na elevada volatilidade do comportamento de compra, fortemente influenciado pela vigência de campanhas promocionais, pela ocorrência de feriados e pelas dinâmicas de concorrência local. O propósito deste projeto consiste em conceber um sistema analítico capaz de interpretar estes padrões históricos e prever com rigor a faturação futura, capacitando os decisores para otimizar as rotinas de reabastecimento e maximizar a rentabilidade de toda a operação comercial.
 ### Objetivos do Projeto
-* **Objetivo 1:** [Ex: Prever a rotatividade de clientes]
-* **Objetivo 2:** [Ex: Identificar os principais fatores de influência]
+A meta central deste trabalho reside no desenvolvimento de um modelo de regressão vocacionado para a estimativa da faturação diária em cada estabelecimento da cadeia. O sucesso desta solução técnica será medido de forma objetiva, visando alcançar um erro percentual médio igual ou inferior a vinte por cento e um coeficiente de determinação de pelo menos oitenta e cinco por cento. Em paralelo, a análise procura isolar e quantificar o impacto prático de variáveis externas e operacionais, compreendendo de que forma a sazonalidade, as promoções em vigor e o distanciamento face à concorrência afetam os padrões de consumo e o volume transacionado.
 ### Fonte de Dados
 * **Dataset:** [Link para a fonte ou descrição dos ficheiros]
 * **Dimensão:** [Ex: 10.000 linhas, 15 colunas]
