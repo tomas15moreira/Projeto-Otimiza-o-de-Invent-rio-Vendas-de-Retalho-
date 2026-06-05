@@ -1,8 +1,7 @@
-# [Título do Projeto de Ciência de Dados]
+# Otimização de Inventário (Vendas de Retalho)
 ## Identificação da Equipa
-* **Grupo nº:** [Número]
 * **Membros:**
- * [Nome do Aluno 1] - [Nº de Estudante]
+ * Tomás Moreira - 2023143375
 
 ## Organização do Repositório
 A estrutura deste projeto segue as boas práticas de Ciência de Dados e Engenharia de Software:
