@@ -12,11 +12,24 @@ Este projeto debruça-se sobre os dados de vendas da Rossmann, uma grande cadeia
 O problema central que se pretende resolver é a previsão do volume de vendas diárias de cada loja. Trata-se de um problema de regressão, uma vez que a variável a prever é um valor numérico contínuo, e não uma categoria. Prever este valor com rigor permitiria à cadeia tomar decisões de reabastecimento mais conscientes e de forma antecipada, reduzindo simultaneamente o risco de rutura e o de excesso de inventário.
 
 ## 2. Objetivos SMART
-*Defina os objetivos do projeto seguindo a lógica SMART (Específico, Mensurável, Atingível,
-Relevante e Temporal):*
-1. **Objetivo 1:** [Ex: Reduzir o erro de previsão de stock em 15% até ao final do semestre.]
-2. **Objetivo 2:** [Ex: Identificar os 5 principais perfis de consumo através de técnicas de
-clustering.]
+
+Desenvolver um modelo de regressão para estimar o volume de vendas diárias por loja da cadeia Rossmann, com base no histórico de vendas de janeiro de 2013 a julho de 2015, atingindo um erro percentual médio (RMSPE) igual ou inferior a 20% e um coeficiente de determinação (R²) igual ou superior a 0,85, até às 18h do dia 14 de junho de 2026.
+
+Este objetivo cumpre os cinco critérios da metodologia SMART:
+
+- Específico: pretende prever o volume de vendas diárias por loja, através de um modelo de regressão.
+- Mensurável: o sucesso é avaliado por duas métricas complementares, o erro percentual médio (RMSPE) e o coeficiente de determinação (R²). A primeira mede a dimensão relativa do erro das previsões e a segunda mede a proporção da variação das vendas que o modelo consegue explicar.
+- Atingível: o conjunto de dados reúne mais de um milhão de registos e variáveis suficientes para sustentar uma previsão com esta qualidade.
+- Relevante: a previsão das vendas responde diretamente ao problema da gestão de inventário, permitindo reduzir o risco de rutura de stock e de excesso de mercadoria.
+- Temporal: o objetivo está limitado pela data de entrega do projeto, às 18h do dia 14 de junho de 2026.
+
+## 3. Perguntas de Investigação
+
+1. Quais são os fatores que mais influenciam o volume de vendas diárias das lojas Rossmann?
+2. Existe relação entre a realização de promoções e o aumento das vendas?
+3. De que forma os dias festivos e os fins de semana afetam o volume de vendas?
+4. Quais são as variáveis que mais contribuem para a previsão das vendas no modelo final?
+5. O tipo de loja e a variedade de produtos influenciam o comportamento das vendas?
 ## 3. Metodologia de Gestão (PBL)
 * **Divisão de Tarefas:**
  * **Membro A:** Responsável pela Engenharia de Dados.
