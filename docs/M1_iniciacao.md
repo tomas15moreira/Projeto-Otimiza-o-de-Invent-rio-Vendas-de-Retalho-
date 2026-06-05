@@ -21,7 +21,7 @@ Este objetivo cumpre os cinco critérios da metodologia SMART:
 - Mensurável: o sucesso é avaliado por duas métricas complementares, o erro percentual médio (RMSPE) e o coeficiente de determinação (R²). A primeira mede a dimensão relativa do erro das previsões e a segunda mede a proporção da variação das vendas que o modelo consegue explicar.
 - Atingível: o conjunto de dados reúne mais de um milhão de registos e variáveis suficientes para sustentar uma previsão com esta qualidade.
 - Relevante: a previsão das vendas responde diretamente ao problema da gestão de inventário, permitindo reduzir o risco de rutura de stock e de excesso de mercadoria.
-- Temporal: o objetivo está limitado pela data de entrega do projeto, às 18h do dia 14 de junho de 2026.
+- Temporal: o objetivo está limitado pela data de entrega do projeto, dia 14 de junho de 2026.
 
 ## 3. Perguntas de Investigação
 
