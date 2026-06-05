@@ -19,6 +19,11 @@ O setor do retalho exige um planeamento rigoroso para garantir a adequação do 
 **Objetivo SMART:** Desenvolver um modelo de regressão para estimar o volume de vendas diárias por loja da cadeia Rossmann, com base no histórico de vendas de janeiro de 2013 a julho de 2015, atingindo um erro percentual médio (RMSPE) igual ou inferior a 20% e um coeficiente de determinação (R²) igual ou superior a 0,85, até dia 14 de junho de 2026.
 
 ### Perguntas de Investigação
+1. Quais são os fatores que mais influenciam o volume de vendas diárias das lojas Rossmann?
+2. Existe relação entre a realização de promoções e o aumento das vendas?
+3. De que forma os dias festivos e os fins de semana afetam o volume de vendas?
+4. Quais são as variáveis que mais contribuem para a previsão das vendas no modelo final?
+5. O tipo de loja e a variedade de produtos influenciam o comportamento das vendas?
 
 ### Fonte de Dados
 * **Dataset:** [Link para a fonte ou descrição dos ficheiros]
