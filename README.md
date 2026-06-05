@@ -1,4 +1,4 @@
-# Otimização de Inventário (Vendas de Retalho)
+# Aplicação de Modelos de Regressão na Previsão de Vendas e Gestão de Stocks da Rossmann
 ## Identificação da Equipa
 * **Membros:**
  * Tomás Moreira - 2023143375
