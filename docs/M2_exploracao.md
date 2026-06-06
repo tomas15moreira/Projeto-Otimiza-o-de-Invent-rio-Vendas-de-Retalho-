@@ -1,13 +1,15 @@
 # Milestone 2: Análise Exploratória e Engenharia de Atributos
-> **Nota de Revisão:** Este documento pressupõe que o dataset já foi identificado e descrito no
-ficheiro `docs/M1_iniciacao.md`. Caso precise de consultar o significado original das variáveis,
-deve consultar essa Milestone.
 ## 1. Análise Exploratória de Dados (EDA)
 ### 1.1. Distribuição da Variável Alvo
-*Descrevam como se comporta a variável que querem prever. Está equilibrada? Segue uma distribuição
-normal?*
-> **Factos importantes:** (Ex: "A nossa variável alvo 'Churn' está desequilibrada, com 80% de
-clientes ativos e 20% que saíram.")
+**A Variável e o Problema:** A variável alvo de estudo é o volume de vendas diárias ("Sales"). Tratando-se da previsão de um montante financeiro numérico e contínuo, estamos perante um caso claro de regressão supervisionada. O objetivo não é adivinhar uma categoria, mas sim prever um valor exato de faturação para cada estabelecimento.
+
+**Assimetria e Valores a Zero:** A análise revelou que esta variável está longe de seguir uma distribuição normal. Detetámos uma concentração de registos com o valor exato de zero, que refletem os dias em que as lojas estiveram de portas fechadas. Quando isolamos apenas os dias de funcionamento, a curva apresenta uma forte assimetria positiva, onde a grande maioria da faturação se concentra em valores padrão, existindo contudo picos de venda pontuais muito elevados que chegam a ultrapassar os 41 mil euros.
+
+**A Distorção do Modelo:** O comportamento destes dados tem implicações diretas na forma como vamos preparar o modelo. Se os dias de loja fechada passarem para a nossa folha de cálculo de treino, a regressão vai interpretar esses zeros como um desempenho comercial péssimo, enviesando todas as previsões para baixo. A remoção destes registos inativos é, por isso, um passo obrigatório.
+
+**Adoção de Métricas Robustas:** A enorme amplitude entre dias de vendas fracas e dias de pico exige cuidados na avaliação. Medir o desempenho apenas pelo erro em euros seria limitador, dado que um erro de mil euros tem um peso muito diferente numa loja pequena face a uma loja de grande volume. É por isso que a utilização do erro percentual médio (RMSPE) e do coeficiente de determinação (R²) se revela uma abordagem correta e justa para o nosso cenário.
+
+**Necessidade de Estratégias Específicas:** A inclinação dos dados de faturação exige que os valores sejam ajustados antes da aplicação matemática. Para garantir que as fórmulas de regressão no Excel não sejam desestabilizadas pelos picos de vendas extremas, será essencial aplicar uma transformação logarítmica à variável alvo na próxima etapa, puxando a sua distribuição para um formato muito mais equilibrado e previsível.
 ### 1.2. Correlações Relevantes
 *Quais as variáveis que têm maior relação com o problema? Incluam referências a gráficos que
 geraram no Kaggle.*
