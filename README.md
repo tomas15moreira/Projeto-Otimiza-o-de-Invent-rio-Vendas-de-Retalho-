@@ -33,7 +33,7 @@ O setor do retalho exige um planeamento rigoroso para garantir a adequação do 
 | Link | https://www.kaggle.com/datasets/shahpranshu27/rossman-store-sales |
 | Dimensão | 1 017 209 observações no histórico de treino e 1 115 registos no perfil das lojas |
 | Variável Alvo | Sales (Volume numérico e contínuo da faturação diária) |
-| Descrição | O conjunto de dados documenta o histórico transacional diário e as características comerciais dos estabelecimentos da cadeia de retalho, suportando a criação do modelo preditivo para a otimização de inventário. |
+| Descrição | O conjunto de dados documenta o histórico transacional diário e as características de cada loja, suportando a criação do modelo preditivo para a otimização de inventário. |
 ## 2. Exploração (Milestone 2)
 ### Limpeza e Preparação
 * [Breve resumo das ações de limpeza tomadas. Detalhes em `docs/M2_exploracao.md`]
