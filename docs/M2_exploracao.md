@@ -1,7 +1,7 @@
 # Milestone 2: Análise Exploratória e Engenharia de Atributos
 ## 1. Análise Exploratória de Dados (EDA)
 ### 1.1. Distribuição da Variável Alvo
-**A Variável e o Problema:** A variável alvo de estudo é o volume de vendas diárias ("Sales"). Tratando-se da previsão de um montante financeiro numérico e contínuo, estamos perante um caso claro de regressão supervisionada. O objetivo não é adivinhar uma categoria, mas sim prever um valor exato de faturação para cada estabelecimento.
+**A Variável e o Problema:** A variável alvo de estudo é o volume de vendas diárias ("Sales"). Tratando-se da previsão de um montante financeiro numérico e contínuo, estamos perante um caso claro de regressão. O objetivo não é adivinhar uma categoria, mas sim prever um valor exato de faturação para cada estabelecimento.
 
 **Assimetria e Valores a Zero:** A análise revelou que esta variável está longe de seguir uma distribuição normal. Detetámos uma concentração de registos com o valor exato de zero, que refletem os dias em que as lojas estiveram de portas fechadas. Quando isolamos apenas os dias de funcionamento, a curva apresenta uma forte assimetria positiva, onde a grande maioria da faturação se concentra em valores padrão, existindo contudo picos de venda pontuais muito elevados que chegam a ultrapassar os 41 mil euros.
 
@@ -49,7 +49,7 @@ A análise visual dos boxplots permitiu confirmar e aprofundar as relações sug
 
 **Os Picos de Vendas (Outliers Reais):** Por outro lado, encontrámos valores extremos na coluna das vendas que chegam a ultrapassar os 41 mil euros diários. Embora a estatística os classifique como "outliers" por fugirem muito da média, percebemos que não eram erros. Tratam-se de dias reais de enorme consumo, impulsionados por campanhas fortes ou épocas festivas. Se simplesmente apagássemos estes picos para limpar os gráficos, estaríamos a retirar do histórico os dias mais rentáveis da empresa. Por isso, decidimos manter todos estes valores altos intatos, sabendo que o seu peso será equilibrado mais tarde através da transformação logarítmica que vamos aplicar antes do treino.
 
-### 2.3. Verificação de Duplicados e Seleção de Atributos
+### 2.2. Verificação de Duplicados e Seleção de Atributos
 **Registos Duplicados:** Antes de avançarmos para a escolha das colunas finais, fizemos um teste de segurança para garantir a integridade da base de dados. Confirmámos que não existia nenhuma linha duplicada no histórico, o que nos deu luz verde para moldar a informação final.
 
 **A Ilusão dos Clientes (Fuga de Informação):** A decisão crítica na seleção de atributos foi a remoção da coluna dos visitantes (`Customers`). Embora seja a variável matemática com maior impacto nas vendas, na vida real nós não sabemos hoje quantas pessoas vão entrar na loja na próxima semana. Se deixássemos esta coluna na base de dados, o modelo iria fazer batota, aprendendo a prever as vendas com base numa informação que não estará disponível no momento de uso real.
@@ -66,8 +66,8 @@ A análise visual dos boxplots permitiu confirmar e aprofundar as relações sug
 ### 3.2. Criação de Novos Atributos
 Com o objetivo de explorar a informação disponível para o algoritmo e de captar a lógica de negócio associada ao calendário, criámos novas variáveis derivadas das colunas originais do nosso conjunto de dados: as componentes da data e a variável *Promo2Ativa*.
 
-**Componentes do Calendário (*Ano*, *SemanaDoAno*, *Dia*):**
-A coluna original *Date* foi convertida para o formato de data e, a partir dela, criámos novas colunas independentes para o ano (*Ano*), a semana do ano (*SemanaDoAno*) e o dia do mês (*Dia*). Esta extração permite ao modelo avaliar os ciclos temporais e a sazonalidade do retalho, ajudando a identificar épocas em que as vendas sobem, como as semanas que antecedem o Natal, ou quando descem.
+**Componentes do Calendário (*Ano*, *SemanaDoAno*, *Dia*, *FimDeSemana*):**
+A coluna original *Date* foi convertida para o formato de data e, a partir dela, criámos novas colunas independentes para o ano (*Ano*), a semana do ano (*SemanaDoAno*) e o dia do mês (*Dia*). Criámos ainda a variável *FimDeSemana*, que assume o valor 1 nos dias de sábado e domingo e 0 nos restantes dias. Estas variáveis permitem ao modelo avaliar os ciclos temporais e a sazonalidade do retalho, ajudando a identificar épocas em que as vendas sobem, como as semanas que antecedem o Natal, ou quando descem, como acontece tipicamente ao fim de semana.
 
 **A Variável *Promo2Ativa*:**
 Foi também criada a variável *Promo2Ativa*, que cruza o mês de cada registo com o intervalo de meses de promoção contínua de cada loja (*PromoInterval*). Esta nova variável transforma uma informação textual pouco utilizável num valor binário (1 ou 0), indicando de forma direta se, naquele dia, a loja tinha ou não a promoção de longo prazo a decorrer.
@@ -124,7 +124,7 @@ Percebeu-se também que o número de clientes é o fator mais associado às vend
 
 Quanto à qualidade dos dados, confirmou-se que os valores em falta se concentravam nas características das lojas e correspondiam a ausências de evento, e não a erros, o que orientou a estratégia de imputação. Identificaram-se ainda cinquenta e quatro registos invulgares, de lojas abertas que não venderam nada, os quais foram removidos.
 
-Por fim, a análise das correlações mostrou que as variáveis originais têm, uma relação fraca com as vendas. Foi por isso que se criaram novas variáveis, de calendário e de combinação de atributos, para ajudar o modelo a encontrar padrões que as variáveis originais não mostram sozinhas.
+Por fim, a análise das correlações mostrou que as variáveis originais têm uma relação fraca com as vendas. Foi por isso que se criaram novas variáveis, de calendário e de combinação de atributos, para ajudar o modelo a encontrar padrões que as variáveis originais não mostram sozinhas.
 
 ### Os dados são suficientes para avançar para a modelação?
 
