@@ -76,7 +76,7 @@ Foi também criada a variável *Promo2Ativa*, que cruza o mês de cada registo c
 
 A análise da correlação das novas variáveis com a variável alvo (*Sales*) mostrou valores fracos no seu conjunto. A variável *FimDeSemana* foi a mais expressiva (-0,15), confirmando que as vendas tendem a ser inferiores ao fim de semana. As restantes, como a *SemanaDoAno* e a *Promo2Ativa*, apresentaram correlações próximas de zero.
 
-Importa interpretar estes valores com cuidado. A correlação linear apenas mede relações de proporcionalidade direta e não capta relações não lineares nem interações entre variáveis. Uma variável como a *SemanaDoAno*, por exemplo, pode ter um efeito relevante nas vendas sem que esse efeito seja linear, já que certas alturas do ano ocorrem picos de procura. Os modelos baseados em árvores, que serão usados na modelação, conseguem aproveitar este tipo de relação, pelo que a baixa correlação linear não invalida a utilização destas variáveis.
+Importa interpretar estes valores com cuidado. A correlação linear apenas mede relações de proporcionalidade direta e não capta relações não lineares nem interações entre variáveis. Uma variável como a *SemanaDoAno*, por exemplo, pode ter um efeito relevante nas vendas sem que esse efeito seja linear, já que em certas alturas do ano ocorrem picos de procura. Os modelos baseados em árvores, que serão usados na modelação, conseguem aproveitar este tipo de relação, pelo que a baixa correlação linear não invalida a utilização destas variáveis.
 
 ### 3.2.2 Multicolinearidade
 
