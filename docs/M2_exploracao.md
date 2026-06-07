@@ -12,15 +12,15 @@
 **Necessidade de Estratégias Específicas:** A inclinação dos dados de faturação exige que os valores sejam ajustados antes da aplicação matemática. Para garantir que o modelo de regressão não seja desestabilizado pelos picos de vendas extremas, será essencial aplicar uma transformação logarítmica à variável alvo na próxima etapa, puxando a sua distribuição para um formato muito mais equilibrado e previsível.
 
 ### 1.2. Correlações Relevantes
-A leitura da matriz de correlação (`reports/figures/matriz_correlacao.png`) permitiu identificar matematicamente quais as variáveis com maior impacto na nossa variável alvo, o volume de vendas diárias (`Sales`). Destacam-se os seguintes valores:
+### 1.2. Correlações Relevantes
+A leitura da matriz de correlação (`reports/figures/matriz_correlacao.png`) permitiu identificar quais as variáveis com maior relação com a variável alvo, o volume de vendas diárias (*Sales*). Destacam-se os seguintes valores:
 
-* ***Customers* (0.89):** Correlação positiva muito forte.
-* ***Open* (0.68):** Correlação positiva forte.
-* ***Promo* (0.45):** Correlação positiva moderada.
-* ***DayOfWeek* (-0.46):** Correlação negativa moderada.
-* ***CompetitionDistance* (-0.019):** Correlação negativa muito fraca.
+* *Customers* (0,82): correlação positiva muito forte.
+* *Promo* (0,37): correlação positiva moderada.
+* *DayOfWeek* (-0,18): correlação negativa fraca.
+* *CompetitionDistance* (-0,04): correlação praticamente nula.
 
-Estes números mostram que o número de clientes (`Customers`) é o grande motor da faturação. O facto de a loja estar aberta (`Open`) e ter descontos ativos (`Promo`) também empurra as vendas para cima. Por outro lado, o dia da semana (`DayOfWeek`) tem um impacto negativo moderado, o que faz sentido, já que as vendas tendem a descer à medida que nos aproximamos do fim de semana, com o domingo habitualmente fechado. A distância para a concorrência (`CompetitionDistance`) tem um valor tão baixo que, de forma isolada, praticamente não afeta as vendas.
+Estes números mostram que o número de clientes (*Customers*) é o fator mais associado à faturação. Os dias com promoção (*Promo*) também tendem a registar vendas mais altas. Por outro lado, o dia da semana (*DayOfWeek*) tem uma relação negativa fraca, o que faz sentido, já que as vendas tendem a descer à medida que nos aproximamos do fim de semana, com o domingo habitualmente fechado. A distância para a concorrência (*CompetitionDistance*) tem um valor muito baixo que, de forma isolada, praticamente não afeta as vendas.
 
 ### Análise Gráfica das Variáveis Mais Relevantes
 
