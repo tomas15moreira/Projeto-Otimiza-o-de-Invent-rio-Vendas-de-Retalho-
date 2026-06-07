@@ -132,5 +132,15 @@ Sim. Após a limpeza, a imputação dos valores em falta, a criação de novas v
 
 Importa, ainda assim, registar uma limitação que deverá ser tida em conta. Os dias de feriado são pouco frequentes no conjunto de dados, pelo que o modelo terá menos informação para aprender o comportamento das vendas nessas alturas, o que poderá afetar a fiabilidade das previsões nesses períodos específicos. Apesar desta limitação, os dados estão prontos para avançar para a modelação.
 
+## 6. Referências Bibliográficas
+
+McKinney, W. (2017). *Python for Data Analysis: Data Wrangling with Pandas, NumPy, and IPython* (2.ª ed.). O'Reilly Media.
+
+Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., Grisel, O., et al. (2011). Scikit-learn: Machine Learning in Python. *Journal of Machine Learning Research*, 12, 2825-2830.
+
+Tukey, J. W. (1977). *Exploratory Data Analysis*. Addison-Wesley.
+
+Rossmann Store Sales. (2015). Conjunto de dados alojado na plataforma Kaggle. Recuperado a partir de https://www.kaggle.com/datasets/shahpranshu27/rossman-store-sales
+
 ---
 *Data de última atualização: [07/06/2026]*
