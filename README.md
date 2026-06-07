@@ -35,12 +35,21 @@ O setor do retalho exige um planeamento rigoroso para garantir a adequação do 
 | Variável Alvo | Sales (Volume numérico e contínuo da faturação diária) |
 | Descrição | O conjunto de dados documenta o histórico transacional diário e as características de cada loja, suportando a criação do modelo preditivo para a otimização de inventário. |
 ## 2. Exploração (Milestone 2)
+
 ### Limpeza e Preparação
-* [Breve resumo das ações de limpeza tomadas. Detalhes em `docs/M2_exploracao.md`]
+Os dados de vendas e de lojas foram unidos numa única tabela. A tabela de vendas não apresentava valores em falta. Os valores em falta concentravam-se nas características das lojas e correspondiam a ausências de evento, como lojas sem concorrente próximo ou sem adesão a promoções contínuas, pelo que foram preenchidos com critério. Foram removidos 54 registos de lojas abertas sem qualquer venda, por não refletirem o funcionamento normal. As variáveis categóricas foram codificadas com One-Hot Encoding e foram criadas novas variáveis de calendário e de combinação de atributos. Os detalhes encontram-se em [`docs/M2_exploracao.md`](docs/M2_exploracao.md).
+
 ### Principais Conclusões (EDA)
-> *Dica: Insere aqui o gráfico mais importante do projeto.*
-* **Ponto-chave:** [Ex: Identificámos que o fator X influencia em 40% o resultado Y, por aplicação
-do método ganho de informação]
+
+![Vendas com e sem promoção](reports/figures/vendas_promo_diasemana.png)
+
+* O número de clientes é o fator mais associado às vendas (correlação de 0,82), mas não pode ser usado na previsão por só ser conhecido no final do dia.
+* As promoções aumentam as vendas, sendo uma das variáveis mais úteis para o modelo.
+* As vendas descem ao fim de semana, com o Domingo a destacar-se pelo encerramento da maioria das lojas.
+* O tipo de loja "b", apesar de ser o menos frequente, é o que regista vendas medianas mais elevadas.
+* As variáveis originais têm, de forma isolada, uma relação fraca com as vendas, o que justificou a criação de novas variáveis na fase de engenharia de atributos.
+> **Síntese:** A análise mostrou que nenhuma variável explica as vendas de forma isolada. O comportamento das vendas resulta da combinação de vários fatores, como promoções, calendário e perfil da loja. Esta conclusão levou à criação de novas variáveis e a escolha de modelos capazes de cruzar todas estas dimensões em simultâneo, preparando o terreno para a fase de modelação.
+
 ## 3. Modelação (Milestone 3)
 ### Abordagem Técnica
 * **Modelos:** [Ex: Random Forest e XGBoost]
