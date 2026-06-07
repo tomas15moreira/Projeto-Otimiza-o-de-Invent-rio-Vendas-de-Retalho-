@@ -5,7 +5,7 @@
 
 **Assimetria e Valores a Zero:** A análise revelou que esta variável está longe de seguir uma distribuição normal. Detetámos uma concentração de registos com o valor exato de zero, que refletem os dias em que as lojas estiveram de portas fechadas. Quando isolamos apenas os dias de funcionamento, a curva apresenta uma forte assimetria positiva, onde a grande maioria da faturação se concentra em valores padrão, existindo contudo picos de venda pontuais muito elevados que chegam a ultrapassar os 41 mil euros.
 
-**A Distorção do Modelo:** O comportamento destes dados tem implicações diretas na forma como vamos preparar o modelo. Se os dias de loja fechada passarem para a nossa folha de cálculo de treino, a regressão vai interpretar esses zeros como um desempenho comercial péssimo, enviesando todas as previsões para baixo. A remoção destes registos inativos é, por isso, um passo obrigatório.
+**A Distorção do Modelo:** O comportamento destes dados tem implicações diretas na forma como vamos preparar o modelo. Se os dias de loja fechada passarem para o nosso conjunto de dados de treino, a regressão vai interpretar esses zeros como um desempenho comercial péssimo, enviesando todas as previsões para baixo. A remoção destes registos inativos é, por isso, um passo obrigatório.
 
 **Adoção de Métricas Robustas:** A enorme amplitude entre dias de vendas fracas e dias de pico exige cuidados na avaliação. Medir o desempenho apenas pelo erro em euros seria limitador, dado que um erro de mil euros tem um peso muito diferente numa loja pequena face a uma loja de grande volume. É por isso que a utilização do erro percentual médio (RMSPE) e do coeficiente de determinação (R²) se revela uma abordagem correta e justa para o nosso cenário.
 
@@ -24,27 +24,28 @@ Estes números mostram que o número de clientes (*Customers*) é o fator mais a
 
 ### Análise Gráfica das Variáveis Mais Relevantes
 
-Para além dos números da matriz, a visualização dos dados ajudou a perceber como estas relações funcionam na prática no dia a dia das lojas:
+A análise visual dos boxplots permitiu confirmar e aprofundar as relações sugeridas pela matriz de correlação.
 
-* ***Customers vs. Sales:*** Os gráficos de dispersão formam uma linha ascendente quase perfeita, provando que mais visitantes garantem mais dinheiro em caixa. Contudo, como não sabemos antecipadamente quantas pessoas vão visitar a loja na próxima semana, esta variável serve apenas para compreender o passado, não podendo entrar nas fórmulas de previsão do modelo final.
-* ***Promo vs. Sales:*** A análise gráfica mostra diferenças evidentes. Os dias com campanhas ativas apresentam barras de faturação visivelmente mais altas. Isto comprova que o consumidor da Rossmann reage muito bem aos descontos, sendo a promoção a principal alavanca para prever grandes picos de vendas.
-* ***Open vs. Sales:*** Os gráficos separam de forma cirúrgica duas realidades. Nos 17% dos dias em que as lojas fecham, a linha de vendas fixa no zero. Esta evidência visual reforça que temos de remover estes dias inativos antes de passarmos a matriz para a nossa folha de cálculo, evitando que as regressões fiquem distorcidas.
-* ***CompetitionDistance vs. Sales:*** Neste cruzamento, os gráficos mostram uma grande dispersão de pontos. Há concorrência na mesma rua a faturar tanto como lojas completamente isoladas. Esta falta de padrão visual confirma o valor fraco da matriz e prova que uma boa localização ou o tipo de produtos importam muito mais do que ter concorrentes por perto.
+* **Efeito das promoções:** O boxplot das vendas com e sem promoção (`reports/figures/vendas_promo_diasemana.png`) mostra uma diferença. Nos dias com promoção, a mediana das vendas é visivelmente superior à dos dias sem promoção. Isto confirma que as campanhas promocionais têm um efeito real e positivo no volume de vendas, sendo uma das variáveis mais úteis para a previsão.
 
-**Conclusão da Análise:** Os números e os gráficos provam que não podemos olhar para as características de forma isolada. Há uma grande sobreposição nos comportamentos de consumo. Para atingirmos a margem de erro rigorosa que traçámos, temos de levar todas estas variáveis limpas para a folha de cálculo e aplicar uma abordagem multivariável. Só cruzando o calendário, as promoções e o perfil de cada loja em simultâneo através de um modelo multivariável é que conseguiremos prever a verdadeira complexidade das vendas.
+* **Efeito do dia da semana:** O mesmo gráfico mostra que as vendas se mantêm relativamente estáveis ao longo dos dias úteis, destacando-se o domingo (dia 7) pela sua maior dispersão. Como a maioria das lojas encerra ao domingo, os poucos registos desse dia apresentam um comportamento mais irregular. Esta análise confirma a relação entre o dia da semana e as vendas.
 
+* **Efeito do tipo de loja:** O boxplot das vendas por tipo de loja (`reports/figures/vendas_tipoloja_variedade.png`) revela um padrão interessante. O tipo de loja "b", apesar de ser o menos frequente no conjunto de dados, é o que apresenta vendas medianas mais elevadas, claramente acima dos restantes tipos. Os tipos "a", "c" e "d" apresentam distribuições de vendas semelhantes entre si.
+
+* **Efeito da variedade de produtos:** De forma semelhante, a variedade "b" destaca-se com vendas medianas superiores às das restantes. Tal como no tipo de loja, a categoria menos comum é a que regista maior volume de vendas, o que sugere que estas lojas, embora raras, têm um perfil comercial distinto e mais forte.
+
+**Síntese:** Estas análises mostram que o comportamento das vendas depende de vários fatores em simultâneo, como a presença de promoções, o dia da semana e o perfil da loja. Nenhuma destas variáveis explica as vendas sozinha, o que reforça a necessidade de um modelo capaz de cruzar todas estas dimensões em conjunto.
 ## 2. Qualidade dos Dados e Limpeza
 ### 2.1. Tratamento de Dados em Falta (Missing Data)
 **O Ponto de Partida:** A nossa tabela principal com o histórico diário de vendas estava completa e sem qualquer falha nos registos. O desafio da limpeza concentrou-se apenas na tabela secundária que descreve o perfil de cada loja.
 
 **Colunas Afetadas e Lógica:** Os valores nulos agrupavam-se nas variáveis de concorrência (`CompetitionDistance`, `CompetitionOpenSinceMonth`, `CompetitionOpenSinceYear`) e de campanhas promocionais contínuas (`Promo2SinceWeek`, `Promo2SinceYear`, `PromoInterval`). Estes espaços vazios não eram erros informáticos, mas sim a ausência real de um evento (como não ter concorrência por perto ou não aderir à campanha).
 
-**Estratégia para as Promoções:** Como os valores estavam vazios simplesmente porque as lojas não participam nestas campanhas, substituímos os nulos numéricos por zero e a variável de texto por "N/A". Assim, o modelo percebe de forma matemática que a campanha não se aplica àquele espaço.
+**Estratégia para as Promoções:** Como os valores estavam vazios porque as lojas não participam nestas campanhas, substituímos os nulos numéricos por zero e a variável de texto (*PromoInterval*) pela categoria "Nenhum". Assim, o modelo percebe que a campanha não se aplica àquela loja.
 
-**Estratégia para a Concorrência:** Na distância para o concorrente (`CompetitionDistance`), apagar as linhas vazias significava perder o histórico de lojas inteiras. A opção foi substituir estes vazios por um valor numérico muito acima da maior distância já registada, indicando ao modelo que a loja rival está tão longe que não tem impacto nas vendas. Para as datas de abertura da concorrência, seguimos a mesma lógica e preenchemos os espaços com zero.
-### 2.2. Outliers e Inconsistências
+**Estratégia para a Concorrência:** Na distância para o concorrente (*CompetitionDistance*), apagar as linhas vazias significava perder lojas inteiras. Como apenas 0,26% dos valores estavam em falta, optámos por preencher esses vazios com a mediana da coluna. A mediana foi escolhida em vez da média por ser mais robusta aos valores extremos, uma vez que existem lojas com concorrentes a distâncias muito elevadas que enviesariam a média. Para as datas de abertura da concorrência, preenchemos os espaços com zero, indicando que a informação é desconhecida.
 
-**Lojas Abertas sem Faturação:** A maior anomalia que detetámos no histórico foi a existência de 54 dias em que as lojas estavam dadas como abertas, mas o valor das vendas era exatamente zero. No mundo real do comércio, é altamente improvável que um espaço com as portas abertas passe um dia inteiro sem fazer uma única transação. Concluímos que isto se tratou de um erro no sistema de registo das caixas ou de uma falha de comunicação. Como estes dados eram ilógicos e iriam confundir o modelo, a nossa decisão foi apagar estas 54 linhas da base de dados.
+**Lojas Abertas sem Vendas:** Identificámos 54 dias em que as lojas estavam registadas como abertas mas com vendas iguais a zero. No comércio, é invulgar que uma loja aberta passe um dia inteiro sem qualquer venda, pelo que estes registos não refletem o funcionamento normal das lojas. Por se afastarem do comportamento esperado e poderem confundir o modelo, optámos por remover estas 54 linhas.
 
 **Os Picos de Vendas (Outliers Reais):** Por outro lado, encontrámos valores extremos na coluna das vendas que chegam a ultrapassar os 41 mil euros diários. Embora a estatística os classifique como "outliers" por fugirem muito da média, percebemos que não eram erros. Tratam-se de dias reais de enorme consumo, impulsionados por campanhas fortes ou épocas festivas. Se simplesmente apagássemos estes picos para limpar os gráficos, estaríamos a retirar do histórico os dias mais rentáveis da empresa. Por isso, decidimos manter todos estes valores altos intatos, sabendo que o seu peso será equilibrado mais tarde através da transformação logarítmica que vamos aplicar antes do treino.
 
@@ -59,26 +60,23 @@ Para além dos números da matriz, a visualização dos dados ajudou a perceber 
 
 ## 3. Engenharia de Atributos (Feature Engineering)
 ### 3.1. Transformações Realizadas
-**Encoding:** Transformámos as variáveis categóricas de texto, como o tipo de estabelecimento (`StoreType`) e a variedade de produtos (`Assortment`), em formato numérico. Uma vez que as fórmulas matemáticas não conseguem interpretar letras, mapeámos as categorias originais (a, b, c, d) para números. Esta conversão foi um passo para garantir que o modelo consigua processar o perfil exato de cada loja sem descartar a informação original.
+**Codificação das Variáveis Categóricas (Encoding):** Transformámos as variáveis categóricas de texto, como o tipo de loja (*StoreType*), a variedade de produtos (*Assortment*) e o tipo de feriado (*StateHoliday*), em formato numérico. Como os algoritmos não interpretam texto, aplicámos One-Hot Encoding, que cria uma coluna binária por cada categoria. Esta abordagem é adequada a variáveis sem ordem natural, pois não impõe qualquer hierarquia entre as categorias.
 
-**Escalonamento e Transformações Matemáticas:** O ajuste que preparámos incidiu sobre a variável alvo, as vendas (`Sales`). Devido à enorme diferença entre os dias de vendas fracas e os picos de faturação extrema, aplicámos uma transformação logarítmica. Esta operação comprime a escala dos dados, puxando a distribuição para um formato muito mais equilibrado e evitando que o modelo fique desorientado pelos dias atípicos. Para variáveis contínuas com valores absolutos muito altos, como a distância para a concorrência (`CompetitionDistance`), o escalonamento coloca todas as métricas na mesma ordem de grandeza. Isto garante que o algoritmo não atribua um peso desproporcional a uma característica apenas por ter números naturalmente maiores.
+**Transformações previstas para a fase de modelação:** Duas transformações importantes foram planeadas, mas serão aplicadas apenas na fase de modelação, e não nesta fase. A primeira é a transformação logarítmica da variável alvo (*Sales*), que servirá para equilibrar a assimetria identificada na análise exploratória. A segunda é o escalonamento das variáveis numéricas. Optou-se por deixar estas transformações para a fase seguinte por dois motivos: o escalonamento deve ser ajustado apenas com os dados de treino, para evitar a fuga de informação do conjunto de teste, e o modelo principal previsto baseia-se em árvores de decisão, que não são sensíveis à escala das variáveis.
 ### 3.2. Criação de Novos Atributos
 Com o objetivo de explorar a informação disponível para o algoritmo e de captar a lógica de negócio associada ao calendário, criámos novas variáveis derivadas das colunas originais do nosso conjunto de dados: as componentes da data e a variável *Promo2Ativa*.
 
-**Componentes do Calendário (*Year*, *WeekOfYear*, *Day*):**
-A coluna original *Date* estava num formato de texto (Ano-Mês-Dia) que o modelo não consegue interpretar matematicamente. Para resolver isto, desconstruímos a data e criámos novas colunas independentes para o ano (*Year*), a semana do ano (*WeekOfYear*) e o dia do mês (*Day*).
-Esta extração permite ao modelo avaliar ciclos temporais e a sazonalidade do retalho, ajudando a identificar situações em que as vendas disparam, como o início do mês (quando os clientes recebem o salário) ou as semanas que antecedem o Natal.
+**Componentes do Calendário (*Ano*, *SemanaDoAno*, *Dia*):**
+A coluna original *Date* foi convertida para o formato de data e, a partir dela, criámos novas colunas independentes para o ano (*Ano*), a semana do ano (*SemanaDoAno*) e o dia do mês (*Dia*). Esta extração permite ao modelo avaliar os ciclos temporais e a sazonalidade do retalho, ajudando a identificar épocas em que as vendas sobem, como as semanas que antecedem o Natal, ou quando descem.
 
 **A Variável *Promo2Ativa*:**
-Foi também criada a variável *Promo2Ativa*, que cruza a data de cada venda com as colunas do histórico de campanhas contínuas (*Promo2SinceWeek* e *Promo2SinceYear*).
-Esta nova variável transforma a complexidade do calendário num simples valor binário (1 ou 0). Assim, o modelo consegue identificar de forma imediata e direta se, naquele dia específico, a loja tinha ou não a promoção de longo prazo a decorrer, sem ter de fazer cruzamentos de datas em tempo real.
+Foi também criada a variável *Promo2Ativa*, que cruza o mês de cada registo com o intervalo de meses de promoção contínua de cada loja (*PromoInterval*). Esta nova variável transforma uma informação textual pouco utilizável num valor binário (1 ou 0), indicando de forma direta se, naquele dia, a loja tinha ou não a promoção de longo prazo a decorrer.
 
 ### 3.2.1 Análise de Correlação com as Novas Variáveis
 
-A análise da matriz de correlação atualizada permitiu validar o impacto destes novos atributos no comportamento da variável alvo, as vendas diárias (*Sales*).
+A análise da correlação das novas variáveis com a variável alvo (*Sales*) mostrou valores fracos no seu conjunto. A variável *FimDeSemana* foi a mais expressiva (-0,15), confirmando que as vendas tendem a ser inferiores ao fim de semana. As restantes, como a *SemanaDoAno* e a *Promo2Ativa*, apresentaram correlações próximas de zero.
 
-Observa-se que a variável *WeekOfYear* consegue capturar os ciclos de faturação de forma muito mais eficaz do que a coluna de data inteira, mostrando picos de correlação nas épocas festivas.
-A variável derivada *Promo2Ativa* apresenta também uma correlação relevante com as *Sales*, embora o seu comportamento seja distinto da campanha diária regular (*Promo*). De forma geral, a introdução destas variáveis trouxe uma nova camada ao projeto, ligando o tempo e as campanhas ao volume de negócios de forma muito mais clara.
+Importa interpretar estes valores com cuidado. A correlação linear apenas mede relações de proporcionalidade direta e não capta relações não lineares nem interações entre variáveis. Uma variável como a *SemanaDoAno*, por exemplo, pode ter um efeito relevante nas vendas sem que esse efeito seja linear, já que certas alturas do ano ocorrem picos de procura. Os modelos baseados em árvores, que serão usados na modelação, conseguem aproveitar este tipo de relação, pelo que a baixa correlação linear não invalida a utilização destas variáveis.
 
 ### 3.2.2 Multicolinearidade
 
