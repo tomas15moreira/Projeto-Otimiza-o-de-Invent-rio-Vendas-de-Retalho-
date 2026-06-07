@@ -14,11 +14,11 @@
 ### 1.2. Correlações Relevantes
 A leitura da matriz de correlação (`reports/figures/matriz_correlacao.png`) permitiu identificar matematicamente quais as variáveis com maior impacto na nossa variável alvo, o volume de vendas diárias (`Sales`). Destacam-se os seguintes valores:
 
-* **Customers (0.89):** Correlação positiva muito forte.
-* **Open (0.68):** Correlação positiva forte.
-* **Promo (0.45):** Correlação positiva moderada.
-* **DayOfWeek (-0.46):** Correlação negativa moderada.
-* **CompetitionDistance (-0.019):** Correlação negativa muito fraca.
+* ***Customers* (0.89):** Correlação positiva muito forte.
+* ***Open* (0.68):** Correlação positiva forte.
+* ***Promo* (0.45):** Correlação positiva moderada.
+* ***DayOfWeek* (-0.46):** Correlação negativa moderada.
+* ***CompetitionDistance* (-0.019):** Correlação negativa muito fraca.
 
 Estes números mostram que o número de clientes (`Customers`) é o grande motor da faturação. O facto de a loja estar aberta (`Open`) e ter descontos ativos (`Promo`) também empurra as vendas para cima. Por outro lado, o dia da semana (`DayOfWeek`) tem um impacto negativo moderado, o que faz sentido, já que as vendas tendem a descer à medida que nos aproximamos do fim de semana, com o domingo habitualmente fechado. A distância para a concorrência (`CompetitionDistance`) tem um valor tão baixo que, de forma isolada, praticamente não afeta as vendas.
 
@@ -26,10 +26,10 @@ Estes números mostram que o número de clientes (`Customers`) é o grande motor
 
 Para além dos números da matriz, a visualização dos dados ajudou a perceber como estas relações funcionam na prática no dia a dia das lojas:
 
-* **Customers vs. Sales:** Os gráficos de dispersão formam uma linha ascendente quase perfeita, provando que mais visitantes garantem mais dinheiro em caixa. Contudo, como não sabemos antecipadamente quantas pessoas vão visitar a loja na próxima semana, esta variável serve apenas para compreender o passado, não podendo entrar nas fórmulas de previsão do modelo final.
-* **Promo vs. Sales:** A análise gráfica mostra diferenças evidentes. Os dias com campanhas ativas apresentam barras de faturação visivelmente mais altas. Isto comprova que o consumidor da Rossmann reage muito bem aos descontos, sendo a promoção a principal alavanca para prever grandes picos de vendas.
-* **Open vs. Sales:** Os gráficos separam de forma cirúrgica duas realidades. Nos 17% dos dias em que as lojas fecham, a linha de vendas fixa no zero. Esta evidência visual reforça que temos de remover estes dias inativos antes de passarmos a matriz para a nossa folha de cálculo, evitando que as regressões fiquem distorcidas.
-* **CompetitionDistance vs. Sales:** Neste cruzamento, os gráficos mostram uma grande dispersão de pontos. Há concorrência na mesma rua a faturar tanto como lojas completamente isoladas. Esta falta de padrão visual confirma o valor fraco da matriz e prova que uma boa localização ou o tipo de produtos importam muito mais do que ter concorrentes por perto.
+* ***Customers vs. Sales:*** Os gráficos de dispersão formam uma linha ascendente quase perfeita, provando que mais visitantes garantem mais dinheiro em caixa. Contudo, como não sabemos antecipadamente quantas pessoas vão visitar a loja na próxima semana, esta variável serve apenas para compreender o passado, não podendo entrar nas fórmulas de previsão do modelo final.
+* ***Promo vs. Sales:*** A análise gráfica mostra diferenças evidentes. Os dias com campanhas ativas apresentam barras de faturação visivelmente mais altas. Isto comprova que o consumidor da Rossmann reage muito bem aos descontos, sendo a promoção a principal alavanca para prever grandes picos de vendas.
+* ***Open vs. Sales:*** Os gráficos separam de forma cirúrgica duas realidades. Nos 17% dos dias em que as lojas fecham, a linha de vendas fixa no zero. Esta evidência visual reforça que temos de remover estes dias inativos antes de passarmos a matriz para a nossa folha de cálculo, evitando que as regressões fiquem distorcidas.
+* ***CompetitionDistance vs. Sales:*** Neste cruzamento, os gráficos mostram uma grande dispersão de pontos. Há concorrência na mesma rua a faturar tanto como lojas completamente isoladas. Esta falta de padrão visual confirma o valor fraco da matriz e prova que uma boa localização ou o tipo de produtos importam muito mais do que ter concorrentes por perto.
 
 **Conclusão da Análise:** Os números e os gráficos provam que não podemos olhar para as características de forma isolada. Há uma grande sobreposição nos comportamentos de consumo. Para atingirmos a margem de erro rigorosa que traçámos, temos de levar todas estas variáveis limpas para a folha de cálculo e aplicar uma abordagem multivariável. Só cruzando o calendário, as promoções e o perfil de cada loja em simultâneo através de um modelo multivariável é que conseguiremos prever a verdadeira complexidade das vendas.
 
@@ -59,9 +59,9 @@ Para além dos números da matriz, a visualização dos dados ajudou a perceber 
 
 ## 3. Engenharia de Atributos (Feature Engineering)
 ### 3.1. Transformações Realizadas
-* **Encoding:** (Ex: "Convertemos a variável 'Género' em numérica usando One-Hot Encoding.")
-* **Escalonamento:** (Ex: "Aplicámos o StandardScaler nas variáveis numéricas para que todas
-fiquem na mesma escala.")
+**Encoding:** Transformámos as variáveis categóricas de texto, como o tipo de estabelecimento (`StoreType`) e a variedade de produtos (`Assortment`), em formato numérico. Uma vez que as fórmulas matemáticas não conseguem interpretar letras, mapeámos as categorias originais (a, b, c, d) para números. Esta conversão foi um passo essencial para garantir que o modelo consegue processar o perfil exato de cada loja sem descartar a informação original.
+
+**Escalonamento e Transformações Matemáticas:** O ajuste que preparámos incidiu sobre a variável alvo, as vendas (`Sales`). Devido à enorme diferença entre os dias de vendas fracas e os picos de faturação extrema, aplicámos uma transformação logarítmica. Esta operação comprime a escala dos dados, puxando a distribuição para um formato muito mais equilibrado e evitando que o modelo fique desorientado pelos dias atípicos. Adicionalmente, para variáveis contínuas com valores absolutos muito altos, como a distância para a concorrência (`CompetitionDistance`), o escalonamento coloca todas as métricas na mesma ordem de grandeza. Isto garante que o algoritmo não atribua um peso desproporcional a uma característica apenas por ter números naturalmente maiores.
 ### 3.2. Criação de Novos Atributos
 *Descrevam as variáveis que criaram para ajudar o modelo.*
 * **Nova Variável [Nome]:** (Ex: "Criámos a 'Tenure_Per_Year' que divide o tempo de contrato
