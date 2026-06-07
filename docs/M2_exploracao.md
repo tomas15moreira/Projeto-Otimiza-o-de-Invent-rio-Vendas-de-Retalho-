@@ -12,7 +12,7 @@
 **Necessidade de Estratégias Específicas:** A inclinação dos dados de faturação exige que os valores sejam ajustados antes da aplicação matemática. Para garantir que o modelo de regressão não seja desestabilizado pelos picos de vendas extremas, será essencial aplicar uma transformação logarítmica à variável alvo na próxima etapa, puxando a sua distribuição para um formato muito mais equilibrado e previsível.
 
 ### 1.2. Correlações Relevantes
-### 1.2. Correlações Relevantes
+
 A leitura da matriz de correlação (`reports/figures/matriz_correlacao.png`) permitiu identificar quais as variáveis com maior relação com a variável alvo, o volume de vendas diárias (*Sales*). Destacam-se os seguintes valores:
 
 * *Customers* (0,82): correlação positiva muito forte.
