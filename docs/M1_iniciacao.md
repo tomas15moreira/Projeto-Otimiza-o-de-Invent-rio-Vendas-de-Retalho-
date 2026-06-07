@@ -91,10 +91,10 @@ A evolução das atividades encontra-se organizada de acordo com datas limite, g
 
 | Fase de Execução | Data Limite | Entregável Esperado |
 | :--- | :--- | :--- |
-| Milestone 1: Iniciação | 5 de junho de 2026 | Repositório estruturado e plano de projeto concluído. |
-| Milestone 2: Exploração | 9 de junho de 2026 | Caderno de análise exploratória de dados e matrizes processadas. |
-| Milestone 3: Modelação | 12 de junho de 2026 | Treino comparativo de algoritmos e relatório de métricas obtidas. |
-| Milestone 4: Finalização | 14 de junho de 2026 | Elaboração do documento final e suporte visual para apresentação. |
+| Milestone 1: Iniciação | 7 de junho de 2026 | Repositório estruturado e plano de projeto concluído. |
+| Milestone 2: Exploração | --- | Caderno de análise exploratória de dados e matrizes processadas. |
+| Milestone 3: Modelação | --- | Treino comparativo de algoritmos e relatório de métricas obtidas. |
+| Milestone 4: Finalização | --- | Elaboração do documento final e suporte visual para apresentação. |
 
 ## 8. Referências Bibliográficas
 
