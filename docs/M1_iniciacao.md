@@ -47,9 +47,9 @@ O planeamento segue a metodologia estruturada CRISP-DM (Cross-Industry Standard 
 ## 5. Metodologia de Gestão (PBL)
 ## Gestão do Projeto e Responsabilidades
 
-O desenvolvimento deste projeto será assegurado de forma inteiramente individual. Assumirei a responsabilidade integral por todas as fases do ciclo de vida analítico, o que engloba a engenharia de dados para a extração e preparação da informação, a modelação estatística para a criação e afinação do algoritmo preditivo e a vertente de visualização e redação do documento final.
+O desenvolvimento deste projeto é assegurado de forma inteiramente individual. Assumo a responsabilidade por todas as fases do projeto, desde a preparação dos dados, passando pela criação e afinação do modelo, até à visualização dos resultados e à redação dos documentos.
 
-A execução individual exige um rigor acrescido na organização das etapas de trabalho. A gestão do código e o planeamento das tarefas associadas a cada entrega serão conduzidos através do GitHub, garantindo um controlo de versões estruturado. Assegurando um repositório robusto e analisável ao longo de todo o processo.
+A execução individual exige uma boa organização das etapas de trabalho. A gestão do código e o planeamento das tarefas de cada entrega são feitos através do GitHub, garantindo um controlo de versões organizado ao longo de todo o processo.
 
 ## 6. Análise de Viabilidade dos Dados
 
@@ -58,7 +58,7 @@ O conjunto de dados utilizado é o Rossmann Store Sales, descarregado a partir d
 
 > https://www.kaggle.com/datasets/shahpranshu27/rossman-store-sales.
 
-A informação encontra-se distribuída por ficheiros no formato CSV, com destaque para o histórico de treino e para o descritivo das lojas. Esta estrutura adequa-se à dimensão do projeto, que engloba mais de um milhão de registos, permitindo a leitura e a manipulação direta com bibliotecas analíticas dentro de um ambiente de cadernos interativos, dispensando a necessidade de uma base de dados relacional.
+A informação encontra-se distribuída por ficheiros no formato CSV, com destaque para o histórico de treino e para o descritivo das lojas. Esta estrutura adequa-se à dimensão do projeto, que engloba mais de um milhão de registos, permitindo a leitura e a manipulação direta com bibliotecas analíticas dentro de um ambiente de notebooks Kaggle, dispensando a necessidade de uma base de dados relacional.
 
 ### Qualidade Inicial dos Dados
 Uma inspeção inicial aos ficheiros mostrou que a tabela de treino não tem valores em falta, não se registando qualquer valor omisso na totalidade das observações diárias. Os tipos de dados apresentam-se globalmente coerentes com a sua natureza, embora a variável temporal exija conversão para o formato de data adequado. O principal desafio analítico prende-se com os valores omissos detetados na tabela descritiva das lojas. A análise confirmou que estas lacunas não representam falhas de recolha, mas sim uma ausência de evento real, como a inexistência de um concorrente próximo ou a não adesão a campanhas promocionais contínuas. Por isso, estes valores serão preenchidos com critério, de forma a preservar a informação que essa ausência representa. Adicionalmente, a variável alvo apresenta uma forte assimetria positiva, o que sugere a necessidade futura de transformações matemáticas para estabilizar o modelo de regressão.
@@ -91,8 +91,8 @@ A evolução das atividades encontra-se organizada de acordo com datas limite, g
 
 | Fase de Execução | Data Limite | Entregável Esperado |
 | :--- | :--- | :--- |
-| Milestone 1: Iniciação | 7 de junho de 2026 | Repositório estruturado e plano de projeto concluído. |
-| Milestone 2: Exploração | --- | Caderno de análise exploratória de dados e matrizes processadas. |
+| Milestone 1: Iniciação | 7 de Junho de 2026 | Repositório estruturado e plano de projeto concluído. |
+| Milestone 2: Exploração | 8 de Junho de 2026  | Caderno de análise exploratória de dados e matrizes processadas. |
 | Milestone 3: Modelação | --- | Treino comparativo de algoritmos e relatório de métricas obtidas. |
 | Milestone 4: Finalização | --- | Elaboração do documento final e suporte visual para apresentação. |
 
@@ -105,4 +105,4 @@ Rossmann Store Sales. (2015). Conjunto de dados alojado na plataforma Kaggle. Re
 Wirth, R., & Hipp, J. (2000). CRISP-DM: Towards a standard process model for data mining. Proceedings of the 4th International Conference on the Practical Applications of Knowledge Discovery and Data Mining.
 
 ---
-*Data de última atualização: [05/06/2026]*
+*Data de última atualização: [08/06/2026]*
