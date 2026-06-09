@@ -79,11 +79,44 @@ Tratando-se de um problema de regressão, a avaliação dos erros foi feita atra
 
 Este resultado é coerente com a análise exploratória da fase anterior, que já tinha identificado um comportamento mais irregular das vendas ao fim de semana, sobretudo ao domingo, devido ao encerramento de muitas lojas. O modelo tem, assim, mais dificuldade em prever as vendas nestes dias atípicos. A principal limitação do modelo encontra-se, portanto, nos dias de fim de semana e nas lojas de vendas muito elevadas.
 ### 4.2. Importância dos Atributos (Feature Importance)
-*Quais as variáveis que o modelo considerou mais importantes para decidir?*
-1. [Variável X]
-2. [Variável Y]
+
+O XGBoost permite medir quanto cada variável contribuiu para as previsões do modelo. Esta análise responde diretamente às perguntas de investigação sobre quais os fatores que mais influenciam as vendas e quais as variáveis que mais contribuem para a previsão. As variáveis mais importantes foram as seguintes:
+
+1. **Tipo de loja "b" (*StoreType_b*)**, com uma importância de 0,24, de longe a mais determinante.
+2. **Promoção (*Promo*)**, com 0,18, confirmando o forte efeito das campanhas promocionais.
+3. **Adesão à promoção contínua (*Promo2*)**, com 0,07.
+4. **Variedade de produtos do tipo "c" (*Assortment_c*)**, com 0,07.
+5. **Distância à concorrência (*CompetitionDistance*)**, com 0,06.
+
+**Análise:** A variável mais influente é, com larga vantagem, o tipo de loja "b". Este resultado confirma de forma clara o padrão identificado na análise exploratória, em que o tipo de loja "b", apesar de ser o menos frequente, era o que apresentava vendas medianas mais elevadas. O modelo veio confirmar que esta é a característica mais determinante para prever as vendas. A promoção surge como o segundo fator mais importante, o que está de acordo com o efeito já observado na fase exploratória. No conjunto, são sobretudo o perfil da loja (tipo e variedade) e as promoções que determinam o volume de vendas.
+
+**Um resultado a destacar:** A variável *FimDeSemana*, criada na fase de preparação, apresentou uma importância nula. Isto não significa que o fim de semana não afete as vendas, mas sim que essa informação já está contida na variável *DayOfWeek*, que distingue os sete dias da semana de forma mais detalhada. Sendo o *FimDeSemana* derivado do *DayOfWeek*, o modelo optou por usar a variável original, tornando a criada redundante. De forma semelhante, a variável *Dia* do mês revelou uma importância reduzida. Esta análise mostra que nem todas as variáveis criadas se revelaram úteis, o que é em si um resultado válido, ao distinguir as características que realmente contribuem para a previsão daquelas que são redundantes.
 ## 5. Conclusão da Fase de Modelação
-*Justifiquem por que razão este modelo está pronto (ou não) para ser apresentado como solução
-final.*
+
+A fase de modelação cumpriu o objetivo definido para o projeto. Partindo de um modelo de base simples, foram testados e comparados modelos progressivamente mais sofisticados, com uma melhoria clara do desempenho em cada etapa.
+
+### Evolução do Desempenho
+
+| Modelo | RMSPE (Teste) | MAE (Teste) | R² (Teste) |
+| :--- | :---: | :---: | :---: |
+| Regressão Linear (Baseline) | 41,42% | 1929,05 € | 0,2008 |
+| Random Forest | 25,08% | 1238,39 € | 0,6428 |
+| XGBoost (base) | 22,72% | 1163,49 € | 0,6926 |
+| XGBoost (otimizado) | 15,92% | 761,68 € | 0,8677 |
+
+A progressão é clara: o R² subiu de 0,20 para 0,87 e o erro médio das previsões desceu de 1929 para 762 euros, uma redução de mais de 60%.
+
+### Porque está o modelo pronto a ser apresentado como solução
+
+O modelo final cumpre os dois critérios definidos no objetivo SMART, com um RMSPE de 15,92% (abaixo do limite de 20%) e um R² de 0,8677 (acima do mínimo de 0,85), ambos medidos no conjunto de teste, ou seja, em dados que o modelo nunca viu durante o treino.
+
+Para além de cumprir a meta, o modelo foi validado de forma rigorosa. A divisão temporal dos dados garantiu que não houve fuga de informação. A validação cruzada com cinco dobras confirmou a estabilidade dos resultados, com um desvio padrão de apenas 0,0021. A análise de resíduos e da importância das variáveis permitiu compreender como o modelo decide e onde tem limitações. Por estas razões, considera-se que o modelo está pronto para ser apresentado como solução do projeto.
+
+### Limitações a ter em conta
+
+Apesar de cumprir os objetivos, o modelo apresenta limitações que devem ser reconhecidas. Mostra um sobreajuste (*overfitting*) ligeiro, com um desempenho um pouco superior no treino do que no teste, embora a diferença seja moderada e o desempenho no teste se mantenha forte. Tem também maior dificuldade em prever as vendas nos dias de fim de semana e nas lojas de vendas muito elevadas, como ficou evidente na análise de resíduos. Por fim, os dias de feriado, sendo pouco frequentes no histórico, oferecem menos informação ao modelo, o que pode tornar as previsões menos fiáveis nesses períodos.
+
+Estas limitações não comprometem a utilidade do modelo, mas indicam onde as suas previsões devem ser usadas com mais cuidado. A sua resolução constitui uma via natural de melhoria futura, a abordar na fase final do projeto.
+
 ---
-*Data de última atualização: [DD/MM/AAAA]*
+*Data de última atualização: [10/06/2026]*
