@@ -26,14 +26,14 @@
 
 | Algoritmo | Parâmetros Base | RMSPE (Treino) | RMSPE (Teste) | Diagnóstico de Overfitting | Notas |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Random Forest | `n_estimators=50`, `max_depth=15` | 27,93% | 25,08% | Sem *overfitting*. A proximidade dos valores prova que o modelo não decorou o histórico. | Boa generalização, mas superado pelo concorrente. |
-| XGBoost | `n_estimators=100`, `max_depth=8`, `learning_rate=0.1` | 27,04% | 22,72% | Sem *overfitting*. Margem de erro estável perante dados novos. | Melhor desempenho global. Escolhido para avançar. |
+| Random Forest | `n_estimators=50`, `max_depth=15` | 27,93% | 25,08% | *Overfitting* ligeiro. A proximidade dos valores prova que o modelo não decorou o histórico. | Boa generalização, mas superado pelo concorrente. |
+| XGBoost | `n_estimators=100`, `max_depth=8`, `learning_rate=0.1` | 27,04% | 22,72% | *Overfitting* ligeiro. Margem de erro estável perante dados novos. | Melhor desempenho global. Escolhido para avançar. |
 
 **Análise dos Resultados:**
 * **Random Forest:** Este algoritmo conseguiu reduzir de forma drástica os erros face à Regressão Linear, passando a explicar cerca de 64% da variação das vendas (*Sales*) no conjunto de teste (R² de 0,6428). Contudo, os seus números globais ficaram um passo atrás.
 * **XGBoost:** Revelou o melhor equilíbrio geral da experiência. Para além da excelente capacidade de generalização atestada na tabela, apresentou o menor erro médio absoluto nas previsões diárias (1163,49 euros) e a maior capacidade de explicar a variação da variável vendas (*Sales*) (R² de 0,6926).
 
-**Diagnóstico overfitting/underfitting:** A integração da análise de *overfitting* na tabela confirmou o sucesso da abordagem. Como o erro no teste não disparou em relação ao treino em nenhum dos modelos, provou-se matematicamente que ambos os algoritmos aprenderam as regras reais do retalho, em vez de apenas memorizarem os dados.
+**Diagnóstico overfitting/underfitting:** A integração da análise de *overfitting* na tabela confirmou o sucesso da abordagem. Como o erro no teste não disparou em relação ao treino em nenhum dos modelos, a proximidade dos valores indica que os modelos generalizam bem.
 
 **Conclusão da Seleção:** Tendo provado ser um algoritmo robusto e por ter vencido a Random Forest em todas as métricas de avaliação no conjunto de teste, o XGBoost foi o algoritmo selecionado de forma isolada para avançar para a fase de otimização final.
 ## 3. Otimização (Tuning)
@@ -42,7 +42,7 @@ Descrição de como o melhor modelo foi refinado e validado face aos objetivos d
 
 ### 3.1. Otimização de Hiperparâmetros (RandomizedSearchCV)
 
-**Técnica Utilizada:** Aplicou-se o `RandomizedSearchCV` sobre o algoritmo XGBoost. Dada a grande dimensão do conjunto de dados, o processo foi dividido em duas fases de pesquisa sobre amostras representativas (100 mil e 60 mil registos), testando diferentes combinações de forma mais ágil. A grelha explorada concentrou-se nos hiperparâmetros com maior impacto no desempenho do algoritmo:
+**Técnica Utilizada:** Aplicou-se o `RandomizedSearchCV` sobre o algoritmo XGBoost. Dada a grande dimensão do conjunto de dados, o processo foi dividido em duas fases de pesquisa sobre uma amostra representativa de 100 mil registos, testando diferentes combinações de forma mais ágil. A grelha explorada concentrou-se nos hiperparâmetros com maior impacto no desempenho do algoritmo:
 
 | Hiperparâmetro | Valores Testados (Fase 1 e 2) | Objetivo |
 | :--- | :--- | :--- |
@@ -60,21 +60,24 @@ Descrição de como o melhor modelo foi refinado e validado face aos objetivos d
 
 ### 3.2. Validação Orientada ao Negócio (Objetivos SMART)
 
-Descrição da adaptação matemática do modelo à realidade financeira da operação retalhista.
+**Porquê o RMSPE como métrica principal:** Num problema de regressão como este, não basta olhar para o erro estatístico, é preciso garantir que o erro é aceitável para lojas de dimensões diferentes. Se usássemos apenas o erro em euros, o modelo daria mais peso às lojas de maior volume e trataria com menos rigor as lojas mais pequenas, já que um mesmo erro em euros pesa de forma diferente conforme o tamanho da loja. Por isso, a métrica principal foi o RMSPE, que mede o erro em percentagem. Desta forma, o modelo trata todas as lojas com a mesma importância, independentemente do seu volume habitual de vendas.
 
-**Técnica Utilizada:** Num problema de regressão comercial, a otimização puramente estatística não é suficiente; é necessário garantir que o erro financeiro é aceitável para todas as lojas. Utilizar o erro absoluto em euros iria enviesar o algoritmo para dar primazia aos hipermercados e ignorar as lojas de bairro. Por isso, a otimização foi orientada para o impacto no negócio através do RMSPE (Root Mean Square Percentage Error). Esta métrica penaliza os desvios em percentagem, forçando o algoritmo a tratar as quebras de *Sales* com a mesma importância, independentemente da dimensão ou do volume habitual de faturação de cada loja Rossmann.
+**Resultado face à meta:** O modelo otimizado cumpriu os dois critérios definidos no objetivo SMART. O R² de 0,8677 significa que o modelo explica cerca de 87% da variação das vendas diárias. O RMSPE ficou nos 15,92%, abaixo do limite de 20% que tinha sido estabelecido. Ambos os critérios foram cumpridos com margem.
 
-**Melhoria Obtida:** A aplicação do modelo otimizado e a avaliação rigorosa das métricas ditaram o sucesso global do projeto. Os resultados superaram largamente as restrições financeiras e operacionais impostas pelos Objetivos SMART na fase inicial. Com um R² de 0,8677, o modelo passou a conseguir explicar quase 87% de todas as flutuações das *Sales* diárias. O ganho mais crítico para o negócio observou-se na margem de erro (RMSPE), que estabilizou nos 15,92%, garantindo que as previsões orçamentais da empresa têm agora um risco de falha perfeitamente controlado e abaixo da linha vermelha dos 20%.
-
-| Critério de Negócio | Meta SMART | Resultado Final | Cumprido |
+| Critério | Meta SMART | Resultado Final | Cumprido |
 | :--- | :---: | :---: | :---: |
-| Margem de Erro (RMSPE) | $\le$ 20% | 15,92% | Sim |
-| Poder Explicativo (R²) | $\ge$ 0,85 | 0,8677 | Sim |
+| Margem de erro (RMSPE) | ≤ 20% | 15,92% | Sim |
+| Poder explicativo (R²) | ≥ 0,85 | 0,8677 | Sim |
 ## 4. Avaliação do Modelo Final
-### 4.1. Matriz de Confusão / Erros
-*Analisem onde o modelo mais falha.*
-> **Análise:** (p/ex.: "O modelo ainda confunde a Classe A com a Classe B em 10% dos casos devido
-à semelhança nos atributos X e Y.")
+### 4.1. Análise de Resíduos e Diagnóstico de Erros
+
+Tratando-se de um problema de regressão, a avaliação dos erros foi feita através da análise de resíduos, e não de uma matriz de confusão, que se aplica apenas a problemas de classificação. Um resíduo é a diferença entre o valor real das vendas e o valor previsto pelo modelo.
+
+**Distribuição dos erros:** O gráfico de resíduos (`reports/figures/analise_residuos.png`) mostra que os erros se concentram em torno do zero, o que indica que o modelo acerta na maioria das previsões. A dispersão dos resíduos aumenta à medida que as vendas previstas crescem, formando um padrão em funil. Isto significa que o modelo é mais preciso nas lojas de vendas baixas e médias e tende a errar mais, em valor absoluto, nas lojas de vendas elevadas. O resíduo médio é de cerca de 258 euros, ligeiramente positivo, o que indica que o modelo tende a subestimar muito ligeiramente as vendas reais.
+
+**Onde o modelo mais falha:** Para perceber em que situações o modelo erra mais, isolaram-se os 5% de previsões com maior erro percentual, que apresentam um erro médio de 41%. A análise destas falhas revelou um padrão claro: os dias de fim de semana estão sobre-representados nas piores previsões, correspondendo a 24% dos casos, contra 17% no conjunto geral.
+
+Este resultado é coerente com a análise exploratória da fase anterior, que já tinha identificado um comportamento mais irregular das vendas ao fim de semana, sobretudo ao domingo, devido ao encerramento de muitas lojas. O modelo tem, assim, mais dificuldade em prever as vendas nestes dias atípicos. A principal limitação do modelo encontra-se, portanto, nos dias de fim de semana e nas lojas de vendas muito elevadas.
 ### 4.2. Importância dos Atributos (Feature Importance)
 *Quais as variáveis que o modelo considerou mais importantes para decidir?*
 1. [Variável X]
