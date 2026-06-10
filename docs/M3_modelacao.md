@@ -17,10 +17,10 @@
 * **MAE:** 1929,05 euros
 * **R²:** 0,2008
 
-**Análise do Baseline:** Os valores obtidos foram fracos, um resultado que já era esperado. O R² revela que este algoritmo inicial apenas consegue explicar cerca de 20% da variação das vendas(*Sales*), apresentando um erro médio nas previsões a rondar os 1929 euros. Este desempenho vem confirmar as conclusões da fase de análise exploratória: as relações entre as características das lojas e a faturação não são lineares. Por natureza, um modelo linear é incapaz de captar essas dinâmicas mais complexas, validando assim a necessidade de avançar para modelos baseados em árvores de decisão nas etapas seguintes.
+**Análise do Baseline:** Os valores obtidos foram fracos, um resultado que já era esperado. O R² revela que este algoritmo inicial apenas consegue explicar cerca de 20% da variação das vendas(*Sales*), apresentando um erro médio nas previsões a rondar os 1929 euros. Este desempenho vem confirmar as conclusões da fase de análise exploratória: as relações entre as características das lojas e as vendas não são lineares. Por natureza, um modelo linear é incapaz de captar essas dinâmicas mais complexas, validando assim a necessidade de avançar para modelos baseados em árvores de decisão nas etapas seguintes.
 ## 2.2. Modelos Candidatos
 
-**Justificação da Escolha:** Após os resultados do baseline, avançou-se para algoritmos da família *ensemble*, que combinam várias árvores de decisão para tentar captar as relações complexas e não lineares nos dados de *Sales*. Os dois algoritmos selecionados para teste foram a Random Forest e o XGBoost.
+**Justificação da Escolha:** Após os resultados do baseline, avançou-se para algoritmos da família *ensemble*, que combinam várias árvores de decisão para tentar captar as relações complexas e não lineares nos dados de vendas (*Sales*). Os dois algoritmos selecionados para teste foram a Random Forest e o XGBoost.
 
 **Comparação de Desempenho e Diagnóstico:**
 
@@ -35,7 +35,7 @@
 
 **Diagnóstico overfitting/underfitting:** A integração da análise de *overfitting* na tabela confirmou o sucesso da abordagem. Como o erro no teste não disparou em relação ao treino em nenhum dos modelos, a proximidade dos valores indica que os modelos generalizam bem.
 
-**Conclusão da Seleção:** Tendo provado ser um algoritmo robusto e por ter vencido a Random Forest em todas as métricas de avaliação no conjunto de teste, o XGBoost foi o algoritmo selecionado de forma isolada para avançar para a fase de otimização final.
+**Conclusão da Seleção:** Por ter superado a Random Forest nas métricas do conjunto de teste, o XGBoost foi o algoritmo escolhido para avançar para a fase de otimização.
 ## 3. Otimização (Tuning)
 
 Descrição de como o melhor modelo foi refinado e validado face aos objetivos de negócio.
@@ -57,6 +57,10 @@ Descrição de como o melhor modelo foi refinado e validado face aos objetivos d
 | :--- | :--- | :--- | :--- |
 | XGBoost Base | 22,72% | 0,6926 | — |
 | XGBoost Otimizado | 15,92% | 0,8677 | Melhoria de 6,8 p.p. |
+
+**Observação sobre as duas fases de pesquisa:** A otimização decorreu em duas fases, ambas sobre a mesma amostra de 100 mil registos, para que a comparação fosse justa. Na primeira fase exploraram-se valores moderados, e os melhores resultados surgiram nos valores mais altos do espaço definido (500 árvores e taxa de aprendizagem de 0,2). Isto levantou a dúvida de se existiriam valores ainda melhores para lá desses limites, pelo que se realizou uma segunda fase a explorar valores mais altos, até 1200 árvores.
+
+A segunda fase obteve um R² de 0,9216, muito próximo do R² de 0,9199 da primeira. Esta diferença, de apenas 0,0017, é inferior ao desvio padrão entre as dobras (0,0021), o que significa que as duas configurações são estatisticamente equivalentes. Perante este empate técnico, optou-se pela configuração da primeira fase, com 500 árvores em vez de 900, seguindo o princípio de preferir o modelo mais simples quando o desempenho é equivalente, por reduzir a complexidade e o tempo de treino sem perda de qualidade.
 
 ### 3.2. Validação Orientada ao Negócio (Objetivos SMART)
 
@@ -88,12 +92,12 @@ O XGBoost permite medir quanto cada variável contribuiu para as previsões do m
 4. **Variedade de produtos do tipo "c" (*Assortment_c*)**, com 0,07.
 5. **Distância à concorrência (*CompetitionDistance*)**, com 0,06.
 
-**Análise:** A variável mais influente é, com larga vantagem, o tipo de loja "b". Este resultado confirma de forma clara o padrão identificado na análise exploratória, em que o tipo de loja "b", apesar de ser o menos frequente, era o que apresentava vendas medianas mais elevadas. O modelo veio confirmar que esta é a característica mais determinante para prever as vendas. A promoção surge como o segundo fator mais importante, o que está de acordo com o efeito já observado na fase exploratória. No conjunto, são sobretudo o perfil da loja (tipo e variedade) e as promoções que determinam o volume de vendas.
+**Análise:** A variável mais influente é, o tipo de loja "b". Este resultado confirma o padrão identificado na análise exploratória, em que o tipo de loja "b", apesar de ser o menos frequente, era o que apresentava vendas medianas mais elevadas. O modelo veio confirmar que esta é a característica mais determinante para prever as vendas. A promoção surge como o segundo fator mais importante, o que está de acordo com o efeito já observado na fase exploratória. No conjunto, são sobretudo o perfil da loja (tipo e variedade) e as promoções que determinam o volume de vendas.
 
 **Um resultado a destacar:** A variável *FimDeSemana*, criada na fase de preparação, apresentou uma importância nula. Isto não significa que o fim de semana não afete as vendas, mas sim que essa informação já está contida na variável *DayOfWeek*, que distingue os sete dias da semana de forma mais detalhada. Sendo o *FimDeSemana* derivado do *DayOfWeek*, o modelo optou por usar a variável original, tornando a criada redundante. De forma semelhante, a variável *Dia* do mês revelou uma importância reduzida. Esta análise mostra que nem todas as variáveis criadas se revelaram úteis, o que é em si um resultado válido, ao distinguir as características que realmente contribuem para a previsão daquelas que são redundantes.
 ## 5. Conclusão da Fase de Modelação
 
-A fase de modelação cumpriu o objetivo definido para o projeto. Partindo de um modelo de base simples, foram testados e comparados modelos progressivamente mais sofisticados, com uma melhoria clara do desempenho em cada etapa.
+A fase de modelação cumpriu o objetivo definido para o projeto. Partindo de um modelo de base simples, foram testados e comparados modelos progressivamente mais sofisticados, com uma melhoria do desempenho em cada etapa.
 
 ### Evolução do Desempenho
 
@@ -104,13 +108,13 @@ A fase de modelação cumpriu o objetivo definido para o projeto. Partindo de um
 | XGBoost (base) | 22,72% | 1163,49 € | 0,6926 |
 | XGBoost (otimizado) | 15,92% | 761,68 € | 0,8677 |
 
-A progressão é clara: o R² subiu de 0,20 para 0,87 e o erro médio das previsões desceu de 1929 para 762 euros, uma redução de mais de 60%.
+A progressão foi: o R² subiu de 0,20 para 0,87 e o erro médio das previsões desceu de 1929 para 762 euros, uma redução de mais de 60%.
 
 ### Porque está o modelo pronto a ser apresentado como solução
 
 O modelo final cumpre os dois critérios definidos no objetivo SMART, com um RMSPE de 15,92% (abaixo do limite de 20%) e um R² de 0,8677 (acima do mínimo de 0,85), ambos medidos no conjunto de teste, ou seja, em dados que o modelo nunca viu durante o treino.
 
-Para além de cumprir a meta, o modelo foi validado de forma rigorosa. A divisão temporal dos dados garantiu que não houve fuga de informação. A validação cruzada com cinco dobras confirmou a estabilidade dos resultados, com um desvio padrão de apenas 0,0021. A análise de resíduos e da importância das variáveis permitiu compreender como o modelo decide e onde tem limitações. Por estas razões, considera-se que o modelo está pronto para ser apresentado como solução do projeto.
+O modelo não só cumpriu a meta, como foi validado com rigor. A divisão temporal dos dados garantiu que não houve fuga de informação. A validação cruzada com cinco dobras confirmou a estabilidade dos resultados, com um desvio padrão de apenas 0,0021. A análise de resíduos e da importância das variáveis permitiu compreender como o modelo decide e onde tem limitações. Por estas razões, considera-se que o modelo está pronto para ser apresentado como solução do projeto.
 
 ### Limitações a ter em conta
 
