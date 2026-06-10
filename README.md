@@ -48,7 +48,7 @@ Os dados de vendas e de lojas foram unidos numa única tabela. A tabela de venda
 * As vendas descem ao fim de semana, com o Domingo a destacar-se pelo encerramento da maioria das lojas.
 * O tipo de loja "b", apesar de ser o menos frequente, é o que regista vendas medianas mais elevadas.
 * As variáveis originais têm, de forma isolada, uma relação fraca com as vendas, o que justificou a criação de novas variáveis na fase de engenharia de atributos.
-> **Síntese:** A análise mostrou que nenhuma variável explica as vendas de forma isolada. O comportamento das vendas resulta da combinação de vários fatores, como promoções, calendário e perfil da loja. Esta conclusão levou à criação de novas variáveis e a escolha de modelos capazes de cruzar todas estas dimensões em simultâneo, preparando o terreno para a fase de modelação.
+> **Síntese:** A análise mostrou que nenhuma variável explica as vendas de forma isolada. O comportamento das vendas resulta da combinação de vários fatores, como promoções, calendário e perfil da loja. Esta conclusão levou à criação de novas variáveis e a escolha de modelos capazes de cruzar todas estas dimensões em simultâneo, concluindo assim a preparação dos dados para o treino dos algoritmos.
 
 ## 3. Modelação (Milestone 3)
 
