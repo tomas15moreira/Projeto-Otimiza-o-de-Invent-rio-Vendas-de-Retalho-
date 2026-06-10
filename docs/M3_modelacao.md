@@ -1,8 +1,8 @@
 # Milestone 3: Modelação e Avaliação
 ## 1. Estratégia de Modelação
-**Divisão do Dataset:** Ao contrário das divisões estatísticas comuns, a separação dos dados não foi feita de forma aleatória. Como o objetivo é prever o volume de vendas(*Sales*) no futuro, optou-se por uma divisão temporal para evitar qualquer fuga de informação (data leakage). O histórico foi ordenado de forma cronológica, reservando os 80% de registos mais antigos para treinar o algoritmo e guardando os 20% mais recentes para a fase de teste. Desta forma, simulou-se o cenário real do retalho, obrigando o modelo a usar apenas o passado para tentar prever o futuro.
+**Divisão do Dataset:** Ao contrário das divisões estatísticas comuns, a separação dos dados não foi feita de forma aleatória. Como o objetivo é prever o volume de vendas (*Sales*) no futuro, optou-se por uma divisão temporal para evitar qualquer fuga de informação (data leakage). O histórico foi ordenado de forma cronológica, reservando os 80% de registos mais antigos para treinar o algoritmo e guardando os 20% mais recentes para a fase de teste. Desta forma, simulou-se o cenário real do retalho, obrigando o modelo a usar apenas o passado para tentar prever o futuro.
 
-**Métricas de Sucesso:** Por se tratar da resolução de um problema de regressão contínua, os modelos foram avaliados com três indicadores complementares. É importante referir que, antes do cálculo das métricas, a transformação logarítmica aplicada à variável *Sales_log* foi revertida, garantindo que a avaliação final fosse feita e interpretada na escala original de euros:
+**Métricas de Sucesso:** Por se tratar da resolução de um problema de regressão contínua, os modelos foram avaliados com três indicadores complementares. É importante referir que, antes do cálculo das métricas, a transformação logarítmica aplicada à variável *Sales_log* foi revertida, garantindo que a avaliação final fosse feita e interpretada na escala original, em euros:
 * A métrica principal escolhida foi o **RMSPE** (Root Mean Square Percentage Error). A escolha recaiu sobre este indicador porque avalia o erro em percentagem, o que permite uma comparação entre lojas de dimensões muito diferentes (um erro de 100 euros é muito grave numa loja de bairro pequena, mas quase insignificante num hipermercado).
 * Como complemento de fácil interpretação para o negócio, utilizou-se o **MAE** (Erro Médio Absoluto) para avaliar, em euros, quanto é que as previsões falhavam face à realidade diária.
 * Por fim, analisou-se o **R²** (Coeficiente de Determinação) para validar a eficácia estatística, medindo que proporção das oscilações das vendas o algoritmo conseguia efetivamente explicar.
@@ -17,7 +17,7 @@
 * **MAE:** 1929,05 euros
 * **R²:** 0,2008
 
-**Análise do Baseline:** Os valores obtidos foram fracos, um resultado que já era esperado. O R² revela que este algoritmo inicial apenas consegue explicar cerca de 20% da variação das vendas(*Sales*), apresentando um erro médio nas previsões a rondar os 1929 euros. Este desempenho vem confirmar as conclusões da fase de análise exploratória: as relações entre as características das lojas e as vendas não são lineares. Por natureza, um modelo linear é incapaz de captar essas dinâmicas mais complexas, validando assim a necessidade de avançar para modelos baseados em árvores de decisão nas etapas seguintes.
+**Análise do Baseline:** Os valores obtidos foram fracos, um resultado que já era esperado. O R² revela que este algoritmo inicial apenas consegue explicar cerca de 20% da variação das vendas (*Sales*), apresentando um erro médio nas previsões a rondar os 1929 euros. Este desempenho vem confirmar as conclusões da fase de análise exploratória: as relações entre as características das lojas e as vendas não são lineares. Por natureza, um modelo linear é incapaz de captar essas dinâmicas mais complexas, validando assim a necessidade de avançar para modelos baseados em árvores de decisão nas etapas seguintes.
 ## 2.2. Modelos Candidatos
 
 **Justificação da Escolha:** Após os resultados do baseline, avançou-se para algoritmos da família *ensemble*, que combinam várias árvores de decisão para tentar captar as relações complexas e não lineares nos dados de vendas (*Sales*). Os dois algoritmos selecionados para teste foram a Random Forest e o XGBoost.
@@ -64,7 +64,7 @@ A segunda fase obteve um R² de 0,9216, muito próximo do R² de 0,9199 da prime
 
 ### 3.2. Validação Orientada ao Negócio (Objetivos SMART)
 
-**Porquê o RMSPE como métrica principal:** Num problema de regressão como este, não basta olhar para o erro estatístico, é preciso garantir que o erro é aceitável para lojas de dimensões diferentes. Se usássemos apenas o erro em euros, o modelo daria mais peso às lojas de maior volume e trataria com menos rigor as lojas mais pequenas, já que um mesmo erro em euros pesa de forma diferente conforme o tamanho da loja. Por isso, a métrica principal foi o RMSPE, que mede o erro em percentagem. Desta forma, o modelo trata todas as lojas com a mesma importância, independentemente do seu volume habitual de vendas.
+**Porquê o RMSPE como métrica principal:** Num problema de regressão, não basta olhar para o erro estatístico, é preciso garantir que o erro é aceitável para lojas de dimensões diferentes. Se usássemos apenas o erro em euros, o modelo daria mais peso às lojas de maior volume e trataria com menos rigor as lojas mais pequenas, já que um mesmo erro em euros pesa de forma diferente conforme o tamanho da loja. Por isso, a métrica principal foi o RMSPE, que mede o erro em percentagem. Desta forma, o modelo trata todas as lojas com a mesma importância, independentemente do seu volume habitual de vendas.
 
 **Resultado face à meta:** O modelo otimizado cumpriu os dois critérios definidos no objetivo SMART. O R² de 0,8677 significa que o modelo explica cerca de 87% da variação das vendas diárias. O RMSPE ficou nos 15,92%, abaixo do limite de 20% que tinha sido estabelecido. Ambos os critérios foram cumpridos com margem.
 
@@ -75,9 +75,9 @@ A segunda fase obteve um R² de 0,9216, muito próximo do R² de 0,9199 da prime
 ## 4. Avaliação do Modelo Final
 ### 4.1. Análise de Resíduos e Diagnóstico de Erros
 
-Tratando-se de um problema de regressão, a avaliação dos erros foi feita através da análise de resíduos, e não de uma matriz de confusão, que se aplica apenas a problemas de classificação. Um resíduo é a diferença entre o valor real das vendas e o valor previsto pelo modelo.
+Tratando-se de um problema de regressão, a avaliação dos erros foi feita através da análise de resíduos, e não de uma matriz de confusão, que se aplica a problemas de classificação. Um resíduo é a diferença entre o valor real das vendas e o valor previsto pelo modelo.
 
-**Distribuição dos erros:** O gráfico de resíduos [Análise de resíduos](../reports/figures/analise_residuos.png) mostra que os erros se concentram em torno do zero, o que indica que o modelo acerta na maioria das previsões. A dispersão dos resíduos aumenta à medida que as vendas previstas crescem, formando um padrão em funil. Isto significa que o modelo é mais preciso nas lojas de vendas baixas e médias e tende a errar mais, em valor absoluto, nas lojas de vendas elevadas. O resíduo médio é de cerca de 258 euros, ligeiramente positivo, o que indica que o modelo tende a subestimar muito ligeiramente as vendas reais.
+**Distribuição dos erros:** O gráfico de resíduos [análise de resíduos](../reports/figures/analise_residuos.png), mostra que os erros se concentram em torno do zero, o que indica que o modelo acerta na maioria das previsões. A dispersão dos resíduos aumenta à medida que as vendas previstas crescem, formando um padrão em funil. Isto significa que o modelo é mais preciso nas lojas de vendas baixas e médias e tende a errar mais, em valor absoluto, nas lojas de vendas elevadas. O resíduo médio é de cerca de 258 euros, ligeiramente positivo, o que indica que o modelo tende a subestimar muito ligeiramente as vendas reais.
 
 **Onde o modelo mais falha:** Para perceber em que situações o modelo erra mais, isolaram-se os 5% de previsões com maior erro percentual, que apresentam um erro médio de 41%. A análise destas falhas revelou um padrão claro: os dias de fim de semana estão sobre-representados nas piores previsões, correspondendo a 24% dos casos, contra 17% no conjunto geral.
 
@@ -114,13 +114,13 @@ A progressão foi: o R² subiu de 0,20 para 0,87 e o erro médio das previsões 
 
 O modelo final cumpre os dois critérios definidos no objetivo SMART, com um RMSPE de 15,92% (abaixo do limite de 20%) e um R² de 0,8677 (acima do mínimo de 0,85), ambos medidos no conjunto de teste, ou seja, em dados que o modelo nunca viu durante o treino.
 
-O modelo não só cumpriu a meta, como foi validado com rigor. A divisão temporal dos dados garantiu que não houve fuga de informação. A validação cruzada com cinco dobras confirmou a estabilidade dos resultados, com um desvio padrão de apenas 0,0021. A análise de resíduos e da importância das variáveis permitiu compreender como o modelo decide e onde tem limitações. Por estas razões, considera-se que o modelo está pronto para ser apresentado como solução do projeto.
+Além de cumprir a meta, o modelo passou por várias etapas de validação. A divisão temporal dos dados garantiu que não houve fuga de informação. A validação cruzada com cinco dobras confirmou a estabilidade dos resultados, com um desvio padrão de apenas 0,0021. A análise de resíduos e da importância das variáveis permitiu compreender como o modelo decide e onde tem limitações. Por estas razões, considera-se que o modelo está pronto para ser apresentado como solução do projeto.
 
 ### Limitações a ter em conta
 
 Apesar de cumprir os objetivos, o modelo apresenta limitações que devem ser reconhecidas. Mostra um sobreajuste (*overfitting*) ligeiro, com um desempenho um pouco superior no treino do que no teste, embora a diferença seja moderada e o desempenho no teste se mantenha forte. Tem também maior dificuldade em prever as vendas nos dias de fim de semana e nas lojas de vendas muito elevadas, como ficou evidente na análise de resíduos. Por fim, os dias de feriado, sendo pouco frequentes no histórico, oferecem menos informação ao modelo, o que pode tornar as previsões menos fiáveis nesses períodos.
 
-Estas limitações não comprometem a utilidade do modelo, mas indicam onde as suas previsões devem ser usadas com mais cuidado. A sua resolução constitui uma via natural de melhoria futura, a abordar na fase final do projeto.
+Estas limitações não comprometem a utilidade do modelo, mas indicam onde as suas previsões devem ser usadas com mais cuidado. Estas limitações apontam caminhos de melhoria que serão discutidos na fase final do projeto.
 
 ---
 *Data de última atualização: [10/06/2026]*
