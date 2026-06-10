@@ -37,7 +37,7 @@ O setor do retalho exige um planeamento rigoroso para garantir a adequação do 
 ## 2. Exploração (Milestone 2)
 
 ### Limpeza e Preparação
-Os dados de vendas e de lojas foram unidos numa única tabela. A tabela de vendas não apresentava valores em falta. Os valores em falta concentravam-se nas características das lojas e correspondiam a ausências de evento, como lojas sem concorrente próximo ou sem adesão a promoções contínuas, pelo que foram preenchidos com critério. Foram removidos 54 registos de lojas abertas sem qualquer venda, por não refletirem o funcionamento normal. As variáveis categóricas foram codificadas com One-Hot Encoding e foram criadas novas variáveis de calendário e de combinação de atributos. Os detalhes encontram-se em [`docs/M2_exploracao.md`](docs/M2_exploracao.md).
+Os dados de vendas e de lojas foram unidos numa única tabela. A tabela de vendas não apresentava valores em falta. Os valores em falta concentravam-se nas características das lojas e correspondiam a ausências de evento, como lojas sem concorrente próximo ou sem adesão a promoções contínuas, pelo que foram preenchidos com critério. Foram removidos 54 registos de lojas abertas sem qualquer venda, por não refletirem o funcionamento normal. As variáveis categóricas foram codificadas com One-Hot Encoding e foram criadas novas variáveis de calendário e de combinação de atributos. Mais detalhes encontram-se em [`docs/M2_exploracao.md`](docs/M2_exploracao.md).
 
 ### Principais Conclusões (EDA)
 
@@ -66,7 +66,7 @@ Os dados de vendas e de lojas foram unidos numa única tabela. A tabela de venda
 | R² | 0,8677 | ≥ 0,85 | Sim |
 | MAE | 761,68 € | — | — |
 
-O modelo final cumpriu os dois critérios definidos no objetivo SMART. O R² subiu de 0,20 no modelo de base para 0,87 no modelo final, e o erro médio das previsões desceu de 1929 para 762 euros. Os fatores mais determinantes nas vendas revelaram-se o tipo de loja e as promoções. Os detalhes encontram-se em [`docs/M3_modelacao.md`](docs/M3_modelacao.md).
+O modelo final cumpriu os dois critérios definidos no objetivo SMART. O R² subiu de 0,20 no modelo de base para 0,87 no modelo final, e o erro médio das previsões desceu de 1929 para 762 euros. Os fatores mais determinantes nas vendas revelaram-se o tipo de loja e as promoções. Mais detalhes encontram-se em [`docs/M3_modelacao.md`](docs/M3_modelacao.md).
 ## 4. Finalização (Milestone 4)
 ### Resposta ao Problema
 [Resumo da solução e como ela gera valor para o negócio.]
