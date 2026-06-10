@@ -26,7 +26,7 @@
 
 | Algoritmo | Parâmetros Base | RMSPE (Treino) | RMSPE (Teste) | Diagnóstico de Overfitting | Notas |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Random Forest | `n_estimators=50`, `max_depth=15` | 27,93% | 25,08% | *Overfitting* ligeiro. A proximidade dos valores prova que o modelo não decorou o histórico. | Boa generalização, mas superado pelo concorrente. |
+| Random Forest | `n_estimators=50`, `max_depth=15` | 27,93% | 25,08% | Overfitting ligeiro. A proximidade entre treino e teste indica um bom equilíbrio. | Boa generalização, mas superado pelo concorrente. |
 | XGBoost | `n_estimators=100`, `max_depth=8`, `learning_rate=0.1` | 27,04% | 22,72% | *Overfitting* ligeiro. Margem de erro estável perante dados novos. | Melhor desempenho global. Escolhido para avançar. |
 
 **Análise dos Resultados:**
@@ -51,7 +51,7 @@ Descrição de como o melhor modelo foi refinado e validado face aos objetivos d
 | `n_estimators` | [100, 200, 300, 500, 700, 900, 1200] | Definir o número ideal de árvores de decisão a combinar sequencialmente. |
 | `subsample` | [0.8, 1.0] | Controlar a percentagem de dados fornecida a cada árvore para melhorar a capacidade de generalização. |
 
-**Melhoria Obtida:** A pesquisa identificou a configuração ideal (`n_estimators=500`, `max_depth=8`, `learning_rate=0.2`, `subsample=1.0`). O erro percentual (RMSPE) no conjunto de teste desceu de 22,72% para 15,92% após o ajuste, um ganho de 6,8 pontos percentuais. A validação cruzada K-Fold (K=5) confirmou a estabilidade absoluta do modelo, registando um R² médio de 0,92 com um desvio padrão de apenas 0,0021 entre as 5 dobras, provando que os resultados generalizam de forma consistente.
+**Melhoria Obtida:** A pesquisa identificou a configuração ideal (`n_estimators=500`, `max_depth=8`, `learning_rate=0.2`, `subsample=1.0`). O erro percentual (RMSPE) no conjunto de teste desceu de 22,72% para 15,92% após o ajuste, um ganho de 6,8 pontos percentuais. A validação cruzada K-Fold (K=5) confirmou a estabilidade do modelo, registando um R² médio de 0,92 com um desvio padrão de apenas 0,0021 entre as 5 dobras, provando que os resultados generalizam de forma consistente.
 
 | Fase | RMSPE (Teste) | R² (Teste) | Δ RMSPE |
 | :--- | :--- | :--- | :--- |
