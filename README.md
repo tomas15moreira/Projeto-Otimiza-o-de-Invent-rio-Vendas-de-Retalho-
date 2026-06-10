@@ -51,9 +51,22 @@ Os dados de vendas e de lojas foram unidos numa única tabela. A tabela de venda
 > **Síntese:** A análise mostrou que nenhuma variável explica as vendas de forma isolada. O comportamento das vendas resulta da combinação de vários fatores, como promoções, calendário e perfil da loja. Esta conclusão levou à criação de novas variáveis e a escolha de modelos capazes de cruzar todas estas dimensões em simultâneo, preparando o terreno para a fase de modelação.
 
 ## 3. Modelação (Milestone 3)
+
 ### Abordagem Técnica
-* **Modelos:** [Ex: Random Forest e XGBoost]
-* **Métrica Principal:** [Ex: F1-Score ou RMSE]
+* **Modelos testados:** Regressão Linear (baseline), Random Forest e XGBoost.
+* **Modelo final:** XGBoost otimizado (500 árvores, profundidade máxima de 8, taxa de aprendizagem de 0,2).
+* **Métricas principais:** RMSPE (erro percentual), MAE (erro em euros) e R² (poder explicativo).
+* **Validação:** divisão temporal dos dados (80% treino, 20% teste) e validação cruzada com 5 dobras.
+
+### Resultados do Modelo Final
+
+| Métrica | Resultado (Teste) | Meta SMART | Cumprido |
+| :--- | :---: | :---: | :---: |
+| RMSPE | 15,92% | ≤ 20% | Sim |
+| R² | 0,8677 | ≥ 0,85 | Sim |
+| MAE | 761,68 € | — | — |
+
+O modelo final cumpriu os dois critérios definidos no objetivo SMART. O R² subiu de 0,20 no modelo de base para 0,87 no modelo final, e o erro médio das previsões desceu de 1929 para 762 euros. Os fatores mais determinantes nas vendas revelaram-se o tipo de loja e as promoções. Os detalhes encontram-se em [`docs/M3_modelacao.md`](docs/M3_modelacao.md).
 ## 4. Finalização (Milestone 4)
 ### Resposta ao Problema
 [Resumo da solução e como ela gera valor para o negócio.]
