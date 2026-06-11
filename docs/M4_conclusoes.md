@@ -25,6 +25,16 @@ O modelo final reduziu o erro médio das previsões de cerca de 1929 euros para 
 ## 2. Análise Crítica e Limitações
 **Limitações dos Dados:** O histórico disponível abrange de janeiro de 2013 a julho de 2015, um período de dois anos e meio. Os dias de feriado, por serem pouco frequentes nesse histórico, oferecem menos exemplos ao modelo, o que torna as previsões menos fiáveis nesses dias. Além disso, o modelo não tem acesso a fatores externos que influenciam as vendas, como as condições meteorológicas ou eventos locais.
 
+- A variável mais associada às vendas era o número de clientes diários, com uma correlação
+  de 0,82 identificada na fase exploratória. Por só ser conhecida no final do dia, não pôde
+  ser usada como preditora, o que representa uma limitação estrutural do modelo.
+- O intervalo de dois anos e meio, embora suficiente para treinar um modelo robusto, não
+  captura ciclos económicos mais longos nem tendências de mercado que se manifestam ao longo
+  de vários anos, como mudanças graduais nos hábitos de consumo ou a entrada de novos
+  concorrentes.
+- O modelo foi treinado num período específico e pode não captar mudanças estruturais do
+  mercado que ocorram no futuro, como crises económicas não representadas no histórico.
+
 **Limitações do Modelo:** O modelo apresenta um sobreajuste (*overfitting*) ligeiro, com um desempenho um pouco melhor no treino do que no teste, embora a diferença seja moderada e o desempenho no teste se mantenha forte. A análise de resíduos mostrou ainda que o modelo é menos preciso nas lojas de vendas muito elevadas, onde o erro absoluto tende a ser maior.
 
 **Contextos de Falha:** O modelo tem maior dificuldade em prever as vendas nos dias de fim de semana, sobretudo ao domingo, devido ao comportamento irregular das vendas nesses dias e ao encerramento de muitas lojas. As suas previsões devem, por isso, ser usadas com mais cautela nestes períodos. O modelo também não está preparado para prever vendas em situações que não constam no histórico de treino, como promoções de um tipo nunca antes realizado ou a abertura de lojas em mercados muito diferentes.
