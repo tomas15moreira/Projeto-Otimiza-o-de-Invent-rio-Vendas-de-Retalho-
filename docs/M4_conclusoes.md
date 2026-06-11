@@ -44,7 +44,7 @@ O modelo final reduziu o erro médio das previsões de cerca de 1929 euros para 
 
 ## 3. Considerações Éticas e de Viés
 ### **Privacidade** 
-O conjunto de dados utilizado não contém qualquer informação pessoal de clientes. Os dados referem-se a vendas agregadas por loja e por dia, e não a transações individuais ou a dados identificáveis de pessoas. A variável que representava o número de clientes foi, removida da modelação, por só ser conhecida no final do dia. O modelo analisa, assim, apenas padrões de venda das lojas, sem implicações para a privacidade individual.
+O conjunto de dados utilizado não contém qualquer informação pessoal de clientes. Os dados referem-se a vendas agregadas por loja e por dia, e não a transações individuais ou a dados identificáveis de pessoas. A variável que representava o número de clientes foi removida da modelação, por só ser conhecida no final do dia. O modelo analisa, assim, apenas padrões de venda das lojas, sem implicações para a privacidade individual.
 
 ### **Transparência e Explicabilidade** 
 Para tornar o modelo mais transparente e perceber o que está por trás das suas previsões, foi feita uma análise da importância das variáveis, que mostra quais os fatores que mais pesam nas previsões. Esta explicabilidade permite compreender a razão das decisões do modelo, em vez de aceitar números sem justificação. Saber, por exemplo, que o tipo de loja e as promoções são os fatores que mais influenciam as vendas torna o modelo transparente e ajuda os gestores a confiar nas suas previsões e a interpretá-las com sentido crítico.
@@ -80,7 +80,7 @@ A exploração inicial dos dados revelou que nenhuma variável, de forma isolada
 
 Ao longo do trabalho, procurou-se privilegiar decisões fundamentadas em vez de resultados impressionantes. A divisão temporal dos dados, mais exigente do que uma divisão aleatória, foi escolhida por refletir a realidade do problema. A escolha do modelo final recaiu sobre a configuração mais simples entre as equivalentes, em vez da que apresentava o número ligeiramente mais alto. E as limitações foram identificadas de forma aberta, em vez de escondidas. Estas opções refletem uma preocupação com o rigor e a honestidade que se considera mais valiosa do que qualquer métrica isolada.
 
-O modelo desenvolvido não é uma solução fechada, mas um ponto de partida. Cumpre os objetivos a que se propôs e oferece valor real para a gestão de inventário, ao mesmo tempo que deixa em aberto caminhos claros de evolução. Cumpre o seu propósito, reconhece as suas limitações mas é uma base sólida e honesta sobre a qual abre caminho para evoluções futuras.
+O modelo desenvolvido não é uma solução fechada, mas um ponto de partida. Cumpre os objetivos a que se propôs e oferece valor real para a gestão de inventário, ao mesmo tempo que deixa em aberto caminhos claros de evolução. É, acima de tudo, uma base sólida e honesta sobre a qual se pode continuar a construir.
 
 ---
 **Data de Conclusão:** 11 de Junho de 2026
