@@ -80,7 +80,7 @@ A exploração inicial dos dados revelou que nenhuma variável, de forma isolada
 
 Ao longo do trabalho, procurou-se privilegiar decisões fundamentadas em vez de resultados impressionantes. A divisão temporal dos dados, mais exigente do que uma divisão aleatória, foi escolhida por refletir a realidade do problema. A escolha do modelo final recaiu sobre a configuração mais simples entre as equivalentes, em vez da que apresentava o número ligeiramente mais alto. E as limitações foram identificadas de forma aberta, em vez de escondidas. Estas opções refletem uma preocupação com o rigor e a honestidade que se considera mais valiosa do que qualquer métrica isolada.
 
-O modelo desenvolvido não é uma solução fechada, mas um ponto de partida. Cumpre os objetivos a que se propôs e oferece valor real para a gestão de inventário, ao mesmo tempo que deixa em aberto caminhos claros de evolução. Cumpre o seu propósito, reconhece as suas limitações mas é uma base sólida e honesta sobre a qual abre caminho para evoluções futuras,.
+O modelo desenvolvido não é uma solução fechada, mas um ponto de partida. Cumpre os objetivos a que se propôs e oferece valor real para a gestão de inventário, ao mesmo tempo que deixa em aberto caminhos claros de evolução. Cumpre o seu propósito, reconhece as suas limitações mas é uma base sólida e honesta sobre a qual abre caminho para evoluções futuras.
 
 ---
 **Data de Conclusão:** 11 de Junho de 2026
