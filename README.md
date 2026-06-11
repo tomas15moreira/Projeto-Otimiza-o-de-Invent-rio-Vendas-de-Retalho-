@@ -69,9 +69,15 @@ Os dados de vendas e de lojas foram unidos numa única tabela. A tabela de venda
 O modelo final cumpriu os dois critérios definidos no objetivo SMART. O R² subiu de 0,20 no modelo de base para 0,87 no modelo final, e o erro médio das previsões desceu de 1929 para 762 euros. Os fatores mais determinantes nas vendas revelaram-se o tipo de loja e as promoções. Mais detalhes encontram-se em [`docs/M3_modelacao.md`](docs/M3_modelacao.md).
 ## 4. Finalização (Milestone 4)
 ### Resposta ao Problema
-[Resumo da solução e como ela gera valor para o negócio.]
+O objetivo definido na Milestone 1 era prever as vendas diárias de cada loja da Rossmann, com um erro percentual igual ou inferior a 20% e um poder explicativo (R²) igual ou superior a 0,85. Para o alcançar, testaram-se vários modelos, desde uma regressão linear simples até modelos mais avançados baseados em árvores de decisão. O modelo final, um XGBoost otimizado, atingiu um erro percentual de 15,92% e explica 87% da variação das vendas, cumprindo ambos os critérios.
+
+Na prática, isto significa que a previsão de vendas de cada loja se afasta, em média, cerca de 762 euros do valor real, uma melhoria significativa face aos 1929 euros do modelo inicial. A análise mostrou ainda que o tipo de loja e as promoções são os fatores que mais influenciam as vendas. Esta solução oferece à empresa uma ferramenta fiável para planear o reabastecimento de cada loja, reduzindo tanto as ruturas de stock, que afastam clientes, como o excesso de mercadoria, que imobiliza capital.
 ### Recomendações de Inovação
-1. [Sugestão prática baseada nos resultados]
+1. **Novas variáveis:** Criar médias históricas de vendas e de clientes por loja e por dia da semana, calculadas apenas sobre dados passados. O número de clientes era a variável mais associada às vendas (correlação de 0,82), mas não pôde ser usado por só ser conhecido no final do dia. Esta abordagem permitiria recuperar parte desse valor sem comprometer o modelo.
+2. **Dados externos:** Integrar fatores que o modelo atual não conhece, como dados meteorológicos, eventos locais ou períodos de férias escolares, que ajudam a explicar variações nas vendas que o histórico, por si só, não justifica.
+3. **Colocação em produção:** Desenvolver uma interface simples, como uma aplicação web ou um painel interativo, que permita aos gestores das lojas inserir uma data e obter a previsão correspondente, tornando o modelo utilizável por quem não tem formação técnica.
+
+A análise crítica completa, com todas as limitações e o roadmap detalhado, encontra-se em [`docs/M4_conclusoes.md`](docs/M4_conclusoes.md).
 
 ---
 ## Tecnologias e Ferramentas Utilizadas
