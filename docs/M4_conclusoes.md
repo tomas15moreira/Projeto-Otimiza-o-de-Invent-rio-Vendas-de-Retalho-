@@ -31,18 +31,19 @@ O modelo final reduziu o erro médio das previsões de cerca de 1929 euros para 
 
 
 ## 3. Considerações Éticas e de Viés
-* **Privacidade:** (Ex: "Todos os identificadores pessoais foram removidos, garantindo que o
-modelo analisa apenas padrões de comportamento anónimos.")
-* **Transparência:** (Ex: "Utilizámos técnicas de 'Feature Importance' para garantir que as
-decisões do modelo são explicáveis e não operam como uma 'caixa negra'.")
+**Privacidade:** O conjunto de dados utilizado não contém qualquer informação pessoal de clientes. Os dados referem-se a vendas agregadas por loja e por dia, e não a transações individuais ou a dados identificáveis de pessoas. A variável que representava o número de clientes foi, aliás, removida da modelação, por só ser conhecida no final do dia. O modelo analisa, assim, apenas padrões de venda das lojas, sem implicações para a privacidade individual.
+
+**Transparência:** Para garantir que o modelo não funciona como uma caixa negra, foi feita uma análise da importância das variáveis, que permite saber quais os fatores que mais pesam nas previsões. Esta transparência é importante para que os gestores confiem no modelo e compreendam a razão das suas previsões, em vez de aceitarem números sem explicação.
+
+**Viés de Negócio:** Importa notar que um modelo treinado sobre o histórico tende a reproduzir os padrões do passado. Se a empresa basear todas as decisões de reabastecimento apenas nas previsões, corre o risco de reforçar os padrões existentes, dando menos atenção a lojas ou períodos com potencial de crescimento ainda não refletido nos dados. O modelo deve, por isso, apoiar a decisão humana, e não substituí-la por completo.
+
 ## 4. Roadmap e Trabalhos Futuros
-> **Nota:** Sugestões concretas para quem quiser continuar ou escalar este projeto.
-1. **Melhoria Técnica:** (Ex: "Implementar técnicas de reamostragem (SMOTE) para lidar melhor
-com o desequilíbrio das classes.")
-2. **Novas Variáveis:** (Ex: "Integrar dados meteorológicos ou sazonais para refinar as previsões
-de venda.")
-3. **Escalabilidade (Deployment):** (Ex: "Desenvolver uma interface web (Streamlit) para que o
-modelo possa ser utilizado por utilizadores não-técnicos em tempo real.")
+1. **Novas variáveis (atributos):** Criar variáveis de histórico, como a média de vendas ou de clientes por loja e por dia da semana, calculadas apenas sobre dados passados para evitar fuga de informação. Como o número de clientes era a variável mais associada às vendas, captar essa informação de forma legítima poderia melhorar as previsões. Seria também útil integrar dados externos, como informação meteorológica ou de eventos locais.
+
+2. **Outros algoritmos a testar:** Explorar outros algoritmos de boosting, como o LightGBM, que costuma ser mais rápido em grandes conjuntos de dados, ou testar abordagens específicas para séries temporais, que tirem partido da ordem cronológica das vendas de forma mais explícita do que o modelo atual.
+
+3. **Colocação em produção (deployment):** Desenvolver uma interface simples, como uma aplicação web ou um painel interativo (*dashboard*), que permita aos gestores das lojas inserir uma data e obter a previsão de vendas correspondente. Isto tornaria o modelo utilizável por pessoas sem conhecimentos técnicos, transformando-o de um exercício de análise numa ferramenta prática do dia a dia.
+
 ---
 **Data de Conclusão:** [Inserir Data]
 **Versão do Projeto:** v4.0 Final--- 
