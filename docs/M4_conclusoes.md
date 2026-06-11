@@ -9,7 +9,7 @@
 | MAE | 761,68 € | A previsão diária de cada loja afasta-se, em média, cerca de 762 euros do valor real. |
 | R² | 0,8677 | O modelo explica cerca de 87% da variação das vendas diárias. |
 
-**Interpretação dos Resultados:** Em palavras simples, o modelo consegue prever as vendas diárias de uma loja com um erro médio de aproximadamente 762 euros e explica cerca de 87% da variação das vendas. Isto significa que, para a grande maioria dos dias e das lojas, a previsão do modelo fica próxima do valor que realmente se verifica. O modelo aprendeu que fatores como o tipo de loja, a realização de promoções e a variedade de produtos são os que mais influenciam o volume de vendas.
+**Interpretação dos Resultados:** O modelo consegue prever as vendas diárias de uma loja com um erro médio de aproximadamente 762 euros e explica cerca de 87% da variação das vendas. Isto significa que, para a grande maioria dos dias e das lojas, a previsão do modelo fica próxima do valor que realmente se verifica. O modelo aprendeu que fatores como o tipo de loja, a realização de promoções e a variedade de produtos são os que mais influenciam o volume de vendas.
 
 A tabela seguinte mostra a evolução face ao modelo de base, uma simples regressão linear, até ao modelo final otimizado:
 
@@ -19,17 +19,17 @@ A tabela seguinte mostra a evolução face ao modelo de base, uma simples regres
 | Erro médio em euros (MAE) | 1929,05 € | 761,68 € |
 | Variação das vendas explicada (R²) | 0,2008 | 0,8677 |
 
-O modelo final reduziu o erro médio das previsões de cerca de 1929 euros para 762 euros, uma melhoria de mais de 60%, tornando as previsões muito mais fiáveis. Em termos práticos, se uma loja vende em média 7000 euros por dia, a previsão do modelo erra tipicamente cerca de 762 euros, ou seja, indica um valor entre aproximadamente 6240 e 7760 euros. Para a maioria das decisões de reabastecimento, esta margem é suficientemente precisa para planear as encomendas com confiança.
+O modelo final reduziu o erro médio das previsões de cerca de 1929 euros para 762 euros, uma melhoria de mais de 60%, tornando as previsões muito mais fiáveis. Em termos práticos, se uma loja vende em média 7000 euros por dia, a previsão do modelo erra tipicamente cerca de 762 euros, ou seja, indica um valor entre aproximadamente 6240 e 7760 euros. Para a maioria das decisões de reabastecimento, esta margem é adequada para planear as encomendas com confiança.
 
 **Valor para o Negócio:** Uma previsão fiável das vendas diárias permite à Rossmann planear melhor o reabastecimento de cada loja. Com uma margem de erro controlada, a empresa pode reduzir tanto as situações de rutura de stock, que afastam clientes, como o excesso de mercadoria, que imobiliza capital. Saber antecipadamente que uma loja vai ter um dia de vendas elevado permite reforçar o inventário e a equipa; prever um dia fraco evita encomendas desnecessárias. A previsão transforma-se, assim, numa ferramenta de apoio à decisão para a gestão de inventário.
 ## 2. Análise Crítica e Limitações
-> **Nota:** Identificar de forma honesta as fronteiras do projeto e onde o modelo pode falhar.
-* **Limitações dos Dados:** * (Ex: "O volume de dados para a classe X era reduzido, o que pode
-afetar a precisão em cenários específicos.")
-* **Limitações do Modelo:** * (Ex: "O modelo de associação foca-se em relações de co-ocorrência,
-mas não prova causalidade direta entre as variáveis.")
-* **Contextos de Falha:** * (Ex: "O modelo não é recomendado para situações de [Cenário Y], uma
-vez que os dados de treino não contemplavam essa variável externa.")
+**Limitações dos Dados:** O histórico disponível abrange de janeiro de 2013 a julho de 2015, um período de dois anos e meio. Os dias de feriado, por serem pouco frequentes nesse histórico, oferecem menos exemplos ao modelo, o que torna as previsões menos fiáveis nesses dias. Além disso, o modelo não tem acesso a fatores externos que influenciam as vendas, como as condições meteorológicas ou eventos locais.
+
+**Limitações do Modelo:** O modelo apresenta um sobreajuste (*overfitting*) ligeiro, com um desempenho um pouco melhor no treino do que no teste, embora a diferença seja moderada e o desempenho no teste se mantenha forte. A análise de resíduos mostrou ainda que o modelo é menos preciso nas lojas de vendas muito elevadas, onde o erro absoluto tende a ser maior.
+
+**Contextos de Falha:** O modelo tem maior dificuldade em prever as vendas nos dias de fim de semana, sobretudo ao domingo, devido ao comportamento irregular das vendas nesses dias e ao encerramento de muitas lojas. As suas previsões devem, por isso, ser usadas com mais cautela nestes períodos. O modelo também não está preparado para prever vendas em situações que não constam no histórico de treino, como promoções de um tipo nunca antes realizado ou a abertura de lojas em mercados muito diferentes.
+
+
 ## 3. Considerações Éticas e de Viés
 * **Privacidade:** (Ex: "Todos os identificadores pessoais foram removidos, garantindo que o
 modelo analisa apenas padrões de comportamento anónimos.")
