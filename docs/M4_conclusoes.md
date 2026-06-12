@@ -27,6 +27,7 @@ O modelo final reduziu o erro médio das previsões de cerca de 1929 euros para 
 
 * A variável mais associada às vendas era o número de clientes diários, com uma correlação de 0,82 identificada na fase exploratória. Por só ser conhecida no final do dia, não pôde ser usada como preditora, o que representa uma limitação estrutural do modelo.
 * O intervalo de dois anos e meio, embora suficiente para o objetivo deste projeto, não captura ciclos económicos mais longos nem tendências de mercado que se manifestam ao longo de vários anos, como mudanças graduais nos hábitos de consumo ou a entrada de novos concorrentes. Por ter sido treinado neste período, o modelo pode também não reagir bem a mudanças estruturais futuras que não estejam representadas no histórico, como uma crise económica.
+* O conjunto de dados não inclui a localização geográfica das lojas, como o país, a região ou a cidade. Esta informação seria útil, uma vez que o comportamento de compra varia entre regiões e a Rossmann opera em vários mercados europeus. A sua ausência impede o modelo de captar eventuais diferenças regionais que influenciam as vendas.
 
 **Limitações do Modelo:** O modelo, embora cumpra os objetivos, tem fronteiras que devem ser reconhecidas.
 
@@ -65,6 +66,7 @@ Importa notar que um modelo treinado sobre o histórico tende a reproduzir os pa
 1. Criar variáveis de histórico, como a média de vendas ou de clientes por loja e por dia da semana, calculadas apenas sobre dados passados para evitar fuga de informação. Como o número de clientes era a variável mais associada às vendas (correlação de 0,82) mas não pôde ser usado diretamente, criar estas médias seria uma forma de recuperar parte do valor preditivo dos clientes, sem usar dados do próprio dia.
 2. Integrar variáveis externas relevantes, como dados meteorológicos, eventos locais ou os períodos de férias escolares, que ajudariam a explicar melhor as variações das vendas mas que o modelo atual não conhece.
 3. Explorar modelos específicos de séries temporais, que tirem partido da ordem cronológica das vendas, algo que o modelo atual, baseado em árvores de decisão, não aproveita de forma direta.
+4. Recolher a localização geográfica das lojas (país, região ou cidade), o que permitiria ao modelo captar diferenças de comportamento entre mercados e regiões, uma dimensão que o conjunto de dados atual não contempla.
 
 ### 4.3. Escalabilidade e Deployment
 
