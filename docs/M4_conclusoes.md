@@ -9,7 +9,7 @@
 | MAE | 761,68 € | A previsão diária de cada loja afasta-se, em média, cerca de 762 euros do valor real. |
 | R² | 0,8677 | O modelo explica cerca de 87% da variação das vendas diárias. |
 
-**Interpretação dos Resultados:** O modelo consegue prever as vendas diárias de uma loja com um erro médio de aproximadamente 762 euros e explica cerca de 87% da variação das vendas. Isto significa que, para a grande maioria dos dias e das lojas, a previsão do modelo fica próxima do valor que realmente se verifica. O modelo aprendeu que fatores como o tipo de loja, a realização de promoções e a variedade de produtos são os que mais influenciam o volume de vendas.
+**Interpretação dos Resultados:** O modelo consegue prever as vendas diárias de uma loja com um erro médio de aproximadamente 762 euros e explica cerca de 87% da variação das vendas. Isto significa que, para a grande maioria dos dias e das lojas, a previsão do modelo fica próxima do valor que realmente se verifica. O modelo identificou que fatores como o tipo de loja, a realização de promoções e a variedade de produtos são os que mais influenciam o volume de vendas.
 
 A tabela seguinte mostra a evolução face ao modelo de base, uma simples regressão linear, até ao modelo final otimizado:
 
@@ -21,26 +21,26 @@ A tabela seguinte mostra a evolução face ao modelo de base, uma simples regres
 
 O modelo final reduziu o erro médio das previsões de cerca de 1929 euros para 762 euros, uma melhoria de mais de 60%, tornando as previsões muito mais fiáveis. Em termos práticos, se uma loja vende em média 7000 euros por dia, a previsão do modelo erra tipicamente cerca de 762 euros, ou seja, indica um valor entre aproximadamente 6240 e 7760 euros. Para a maioria das decisões de reabastecimento, esta margem é adequada para planear as encomendas com confiança.
 
-**Valor para o Negócio:** Uma previsão fiável das vendas diárias permite à Rossmann planear melhor o reabastecimento de cada loja. Com uma margem de erro controlada, a empresa pode reduzir tanto as situações de rutura de stock, que afastam clientes, como o excesso de mercadoria, que imobiliza capital. Saber antecipadamente que uma loja vai ter um dia de vendas elevado permite reforçar o inventário e a equipa; prever um dia fraco evita encomendas desnecessárias. A previsão transforma-se, assim, numa ferramenta de apoio à decisão para a gestão de inventário.
+**Valor para o Negócio:** Uma previsão fiável das vendas diárias permite à Rossmann planear melhor o reabastecimento de cada loja. Com uma margem de erro controlada, a empresa pode reduzir tanto as situações de rutura de stock, que afastam clientes, como o excesso de mercadoria, que imobiliza capital. Saber antecipadamente que uma loja vai ter um dia de vendas elevado permite reforçar o inventário e a equipa; prever um dia de vendas mais reduzidas evita encomendas desnecessárias. A previsão transforma-se, assim, numa ferramenta de apoio à decisão para a gestão de inventário.
 ## 2. Análise Crítica e Limitações
 **Limitações dos Dados:** O histórico disponível abrange de janeiro de 2013 a julho de 2015, um período de dois anos e meio. Além disso, o modelo não tem acesso a fatores externos que influenciam as vendas, como as condições meteorológicas ou eventos locais.
 
 * A variável mais associada às vendas era o número de clientes diários, com uma correlação de 0,82 identificada na fase exploratória. Por só ser conhecida no final do dia, não pôde ser usada como preditora, o que representa uma limitação estrutural do modelo.
-* O intervalo de dois anos e meio, embora suficiente para o objetivo deste projeto, não captura ciclos económicos mais longos nem tendências de mercado que se manifestam ao longo de vários anos, como mudanças graduais nos hábitos de consumo ou a entrada de novos concorrentes. Por ter sido treinado neste período, o modelo pode também não reagir bem a mudanças estruturais futuras que não estejam representadas no histórico, como uma crise económica.
+* O intervalo de dois anos e meio, embora suficiente para o objetivo deste projeto, não captura ciclos económicos mais longos nem tendências de mercado que se manifestam ao longo de vários anos, como mudanças graduais nos hábitos de consumo ou a entrada de novos concorrentes. Por ter sido treinado neste período, o modelo pode também não adaptar-se adequadamente a mudanças estruturais futuras que não estejam representadas no histórico, como uma crise económica.
 * O conjunto de dados não inclui a localização geográfica das lojas, como o país, a região ou a cidade. Esta informação seria útil, uma vez que o comportamento de compra varia entre regiões e a Rossmann opera em vários mercados europeus. A sua ausência impede o modelo de captar eventuais diferenças regionais que influenciam as vendas.
 
 **Limitações do Modelo:** O modelo, embora cumpra os objetivos, tem fronteiras que devem ser reconhecidas.
 
-* O modelo apresenta um sobreajuste (*overfitting*) ligeiro, com um R² de 0,96 no treino e de 0,87 no teste. A diferença é moderada e o desempenho no teste mantém-se forte, mas indica que o modelo se ajusta um pouco melhor aos dados que já viu do que a dados novos.
-* A análise de resíduos revelou um padrão em funil: o modelo é mais preciso nas lojas de vendas baixas e médias e perde precisão nas lojas de vendas muito elevadas, onde o erro absoluto tende a ser maior. As previsões para as lojas de maior volume devem, por isso, ser interpretadas com mais cautela.
-* O modelo tende a subestimar muito ligeiramente as vendas, com um resíduo médio de cerca de 258 euros. Embora pequeno, este desvio sistemático significa que, na dúvida, o modelo erra mais por defeito do que por excesso.
+* O modelo apresenta um ligeiro sobreajuste (*overfitting*), com um R² de 0,96 no treino e de 0,87 no teste. A diferença é moderada e o desempenho no teste mantém-se forte, mas indica que o modelo se ajusta um pouco melhor aos dados que já viu do que a dados novos.
+* A análise dos resíduos revelou um padrão em funil: o modelo é mais preciso nas lojas de vendas baixas e médias e perde precisão nas lojas de vendas muito elevadas, onde o erro absoluto tende a ser maior. As previsões para as lojas de maior volume devem, por isso, ser interpretadas com mais cautela.
+* O modelo tende a subestimar muito ligeiramente as vendas, com um resíduo médio de cerca de 258 euros. Embora pequeno, este desvio sistemático significa que, na dúvida, o modelo tende a subestimar as vendas com maior frequência do que a sobrestimá-las.
 * Sendo um modelo baseado em árvores de decisão, capta bem as relações entre as variáveis, mas não foi concebido para tirar partido explícito da sequência temporal das vendas. Padrões de tendência ao longo do tempo podem, assim, não ser totalmente aproveitados.
 
 **Contextos de Falha:** Há situações específicas em que as previsões do modelo são menos fiáveis e devem ser usadas com mais cautela.
 
-* O modelo tem maior dificuldade em prever as vendas nos dias de fim de semana, sobretudo ao domingo. A análise de resíduos confirmou-o: os dias de fim de semana representam cerca de 24% das piores previsões, contra 17% no conjunto geral. Isto deve-se ao comportamento irregular das vendas nesses dias e ao encerramento de muitas lojas ao domingo.
+* O modelo tem maior dificuldade em prever as vendas nos dias de fim de semana, sobretudo ao domingo. A análise de resíduos confirmou-o: os dias de fim de semana representam cerca de 24% das piores previsões, contra 17% no conjunto geral. Isto poderá dever-se ao comportamento irregular das vendas nesses dias e ao encerramento de muitas lojas ao domingo.
 * O modelo não está preparado para prever vendas em situações que não constam no histórico de treino, como um tipo de promoção nunca antes realizado ou a abertura de lojas em mercados muito diferentes dos existentes. Nestes casos, o modelo extrapola para além do que aprendeu, e as previsões tornam-se pouco fiáveis.
-* As previsões para os dias de feriado são também menos seguras, uma vez que estes dias são pouco frequentes no histórico e oferecem menos exemplos para o modelo aprender o seu padrão.
+* As previsões para os dias de feriado são também menos seguras, uma vez que estes dias são pouco frequentes no histórico e oferecem menos exemplos para o modelo aprender os respetivos padrões de venda.
 
 
 ## 3. Considerações Éticas e de Viés
@@ -48,7 +48,7 @@ O modelo final reduziu o erro médio das previsões de cerca de 1929 euros para 
 O conjunto de dados utilizado não contém qualquer informação pessoal de clientes. Os dados referem-se a vendas agregadas por loja e por dia, e não a transações individuais ou a dados identificáveis de pessoas. A variável que representava o número de clientes foi removida da modelação, por só ser conhecida no final do dia. O modelo analisa, assim, apenas padrões de venda das lojas, sem implicações para a privacidade individual.
 
 ### **Transparência e Explicabilidade** 
-Para tornar o modelo mais transparente e perceber o que está por trás das suas previsões, foi feita uma análise da importância das variáveis, que mostra quais os fatores que mais pesam nas previsões. Esta explicabilidade permite compreender a razão das decisões do modelo, em vez de aceitar números sem justificação. Saber, por exemplo, que o tipo de loja e as promoções são os fatores que mais influenciam as vendas torna o modelo transparente e ajuda os gestores a confiar nas suas previsões e a interpretá-las com sentido crítico.
+Para tornar o modelo mais transparente e perceber o que está por trás das suas previsões, foi feita uma análise da importância das variáveis, que mostra quais os fatores que mais pesam nas previsões. Esta explicabilidade permite compreender a razão das previsões do modelo, em vez de aceitar números sem justificação. Saber, por exemplo, que o tipo de loja e as promoções são os fatores que mais influenciam as vendas torna o modelo transparente e ajuda os gestores a confiar nas suas previsões e a interpretá-las com sentido crítico.
 
 ### **Viés de Negócio**
 Importa notar que um modelo treinado sobre o histórico tende a reproduzir os padrões do passado. Se a empresa basear todas as decisões de reabastecimento apenas nas previsões, corre o risco de reforçar os padrões existentes, dando menos atenção a lojas ou períodos com potencial de crescimento ainda não refletido nos dados. O modelo deve, por isso, apoiar a decisão humana, e não substituí-la por completo.
@@ -80,12 +80,12 @@ Este projeto percorreu o ciclo de Ciência de Dados, desde a definição do prob
 
 A exploração inicial dos dados revelou que nenhuma variável, de forma isolada, explicava as vendas, o que orientou tanto a criação de novas variáveis como a escolha de modelos capazes de cruzar vários fatores. Essa escolha confirmou-se acertada na fase de modelação, em que os modelos baseados em árvores mostraram-se mais eficazes do que uma abordagem linear simples. E a interpretação final do modelo veio confirmar, com dados, aquilo que a exploração já tinha sugerido: que o perfil da loja e as promoções são os fatores decisivos nas vendas. Esta coerência entre as várias fases é um dos pontos mais sólidos do trabalho.
 
-Ao longo do trabalho, procurou-se privilegiar decisões fundamentadas em vez de resultados impressionantes. A divisão temporal dos dados, mais exigente do que uma divisão aleatória, foi escolhida por refletir a realidade do problema. A escolha do modelo final recaiu sobre a configuração mais simples entre as equivalentes, em vez da que apresentava o número ligeiramente mais alto. E as limitações foram identificadas de forma aberta, em vez de escondidas. Estas opções refletem uma preocupação com o rigor e a honestidade que se considera mais valiosa do que qualquer métrica isolada.
+Ao longo do trabalho, procurou-se privilegiar decisões fundamentadas em vez de resultados impressionantes. A divisão temporal dos dados, mais exigente do que uma divisão aleatória, foi escolhida por refletir a realidade do problema. A escolha do modelo final recaiu sobre a configuração mais simples entre as equivalentes, em vez daquela que apresentava uma métrica ligeiramente superior. E as limitações foram identificadas de forma aberta, em vez de escondidas. Estas opções refletem uma preocupação com o rigor e a honestidade que se considera mais valiosa do que qualquer métrica isolada.
 
 O modelo desenvolvido não é uma solução fechada, mas um ponto de partida. Cumpre os objetivos a que se propôs e oferece valor real para a gestão de inventário, ao mesmo tempo que deixa em aberto caminhos claros de evolução. É, acima de tudo, uma base sólida e honesta sobre a qual se pode continuar a construir.
 
 ---
-**Data de Conclusão:** 11 de Junho de 2026
+**Data de Conclusão:** 14 de Junho de 2026
 
 **Versão do Projeto:** v4.0 Final
 
