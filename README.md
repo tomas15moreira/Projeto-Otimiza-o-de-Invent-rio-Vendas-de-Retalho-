@@ -11,6 +11,10 @@ A estrutura deste projeto segue as boas práticas de Ciência de Dados e Engenha
 * **`src/`**: Código-fonte modular (scripts `.py`) para funções reutilizáveis.
 * **`reports/`**: Relatórios finais, apresentações e exportação de figuras (`figures/`).
 * **`requirements.txt`**: Ficheiro de configuração com as bibliotecas necessárias.
+
+## Link do Vídeo de Apresentação
+https://drive.google.com/file/d/1Sw4VhOVUK1lpzTjJew56S9d-oADKeH6P/view?usp=sharing 
+
 ## 1. Iniciação (Milestone 1)
 ### Contexto e Problema de Negócio
 O setor do retalho exige um planeamento rigoroso para garantir a adequação do inventário à procura diária. A Rossmann, uma cadeia de retalho especializada com mais de mil estabelecimentos, enfrenta o desafio constante de antecipar o volume de transações em cada local. Uma estimativa incorreta pode resultar em ruturas nas prateleiras, o que afasta consumidores para a concorrência, ou na acumulação excessiva de mercadoria, o que imobiliza capital financeiro de forma ineficiente. A complexidade deste planeamento reside na elevada volatilidade do comportamento de compra, influenciado por campanhas promocionais, pela ocorrência de feriados e pela concorrência local. O objetivo deste projeto é criar um modelo que aprenda com o histórico de vendas e preveja as vendas futuras de cada loja, ajudando a decidir melhor o reabastecimento.
